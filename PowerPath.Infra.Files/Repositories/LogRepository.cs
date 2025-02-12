@@ -29,6 +29,9 @@ namespace PowerPath.Infra.Files.Repositories
             DateTime dateTime = new(ano, mes, dia);
             string caminhoArquivo = $"{_caminhoRaiz}_{dateTime:yyyyMMdd}.txt";
 
+            if (!File.Exists(caminhoArquivo))
+                throw new ArgumentException($"Não existem registros em {dateTime:dd/MM/yyyy}.");
+
             return File.ReadAllLines(caminhoArquivo)
                 .Select(ParaObjeto)
                 .ToList();

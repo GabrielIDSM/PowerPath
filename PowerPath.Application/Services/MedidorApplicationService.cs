@@ -16,7 +16,7 @@ namespace PowerPath.Application.Services
         private readonly IMedidorService _medidorService = medidorService;
         private readonly IMapper _mapper = mapper;
 
-        public OperacaoResultadoDTO<MedidorDTO> Alterar(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao)
+        public Resposta<MedidorDTO> Alterar(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao)
         {
             try
             {
@@ -28,33 +28,20 @@ namespace PowerPath.Application.Services
                     _medidorService.Atualizar(medidor, operadora, fabricante, modelo, versao);
                     _medidorRepository.Atualizar(medidor);
                     _medidorRepository.Salvar();
-
-                    return new()
-                    {
-                        Sucesso = true,
-                        Resultado = _mapper.Map<MedidorDTO>(medidor)
-                    };
+                    return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
                 }
                 else
                 {
-                    return new()
-                    {
-                        Sucesso = false,
-                        Mensagem = $"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\"."
-                    };
+                    return Resposta<MedidorDTO>.Erro($"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
             }
             catch (Exception e)
             {
-                return new()
-                {
-                    Sucesso = false,
-                    Mensagem = e.Message
-                };
+                return Resposta<MedidorDTO>.Erro(e.Message);
             }
         }
 
-        public OperacaoResultadoDTO<MedidorDTO> Consultar(string? instalacao, int? lote)
+        public Resposta<MedidorDTO> Consultar(string? instalacao, int? lote)
         {
             try
             {
@@ -63,52 +50,32 @@ namespace PowerPath.Application.Services
 
                 if (medidor is not null && medidor.Excluido == 0)
                 {
-                    return new()
-                    {
-                        Sucesso = true,
-                        Resultado = _mapper.Map<MedidorDTO>(medidor)
-                    };
+                    return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
                 }
                 else
                 {
-                    return new()
-                    {
-                        Sucesso = false,
-                        Mensagem = $"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\"."
-                    };
+                    return Resposta<MedidorDTO>.Erro($"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
             }
             catch (Exception e)
             {
-                return new()
-                {
-                    Sucesso = false,
-                    Mensagem = e.Message
-                };
+                return Resposta<MedidorDTO>.Erro(e.Message);
             }
         }
 
-        public OperacaoResultadoDTO<List<MedidorDTO>> Consultar()
+        public Resposta<List<MedidorDTO>> Consultar()
         {
             try
             {
-                return new()
-                {
-                    Sucesso = true,
-                    Resultado = _mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar())
-                };
+                return Resposta<List<MedidorDTO>>.Sucesso(_mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar()));
             }
             catch (Exception e)
             {
-                return new()
-                {
-                    Sucesso = false,
-                    Mensagem = e.Message
-                };
+                return Resposta<List<MedidorDTO>>.Erro(e.Message);
             }
         }
 
-        public OperacaoResultadoDTO<MedidorDTO> Excluir(string? instalacao, int? lote)
+        public Resposta<MedidorDTO> Excluir(string? instalacao, int? lote)
         {
             try
             {
@@ -120,33 +87,20 @@ namespace PowerPath.Application.Services
                     _medidorService.Excluir(medidor);
                     _medidorRepository.Atualizar(medidor);
                     _medidorRepository.Salvar();
-
-                    return new()
-                    {
-                        Sucesso = true,
-                        Resultado = _mapper.Map<MedidorDTO>(medidor)
-                    };
+                    return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
                 }
                 else
                 {
-                    return new()
-                    {
-                        Sucesso = false,
-                        Mensagem = $"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\"."
-                    };
+                    return Resposta<MedidorDTO>.Erro($"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
             }
             catch (Exception e)
             {
-                return new()
-                {
-                    Sucesso = false,
-                    Mensagem = e.Message
-                };
+                return Resposta<MedidorDTO>.Erro(e.Message);
             }
         }
 
-        public OperacaoResultadoDTO<MedidorDTO> Inserir(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao)
+        public Resposta<MedidorDTO> Inserir(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao)
         {
             try
             {
@@ -167,39 +121,23 @@ namespace PowerPath.Application.Services
                 }
                 else
                 {
-                    return new()
-                    {
-                        Sucesso = false,
-                        Mensagem = $"Medidor já cadastrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\"."
-                    };
+                    return Resposta<MedidorDTO>.Erro($"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
 
-                return new()
-                {
-                    Sucesso = true,
-                    Resultado = _mapper.Map<MedidorDTO>(medidor)
-                };
+                return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
             }
             catch (Exception e)
             {
-                return new()
-                {
-                    Sucesso = false,
-                    Mensagem = e.Message
-                };
+                return Resposta<MedidorDTO>.Erro(e.Message);
             }
         }
 
-        public OperacaoResultadoDTO<List<MedidorDTO>> Inserir(string? caminhoArquivo)
+        public Resposta<List<MedidorDTO>> Inserir(string? caminhoArquivo)
         {
             try
             {
                 if (!File.Exists(caminhoArquivo))
-                    return new()
-                    {
-                        Sucesso = false,
-                        Mensagem = $"Arquivo não encontrado em: \"{caminhoArquivo}\"."
-                    };
+                    return Resposta<List<MedidorDTO>>.Erro($"Arquivo não encontrado em: \"{caminhoArquivo}\".");
 
                 List<Medidor> medidores = File.ReadAllLines(caminhoArquivo)
                     .Select(ParaObjeto)
@@ -230,11 +168,7 @@ namespace PowerPath.Application.Services
                     }
                     else
                     {
-                        return new()
-                        {
-                            Sucesso = false,
-                            Mensagem = $"Medidor já cadastrado para Instalação: \"{medidor.Instalacao}\" e Lote: \"{medidor.Lote}\"."
-                        };
+                        return Resposta<List<MedidorDTO>>.Erro($"Medidor não encontrado para Instalação: \"{medidor.Instalacao}\" e Lote: \"{medidor.Lote}\".");
                     }
                 }
 
@@ -242,19 +176,11 @@ namespace PowerPath.Application.Services
                 _medidorRepository.Atualizar(medidoresParaAtualizar);
                 _medidorRepository.Salvar();
 
-                return new()
-                {
-                    Sucesso = true,
-                    Resultado = _mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar())
-                };
+                return Resposta<List<MedidorDTO>>.Sucesso(_mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar()));
             }
             catch (Exception e)
             {
-                return new()
-                {
-                    Sucesso = false,
-                    Mensagem = e.Message
-                };
+                return Resposta<List<MedidorDTO>>.Erro(e.Message);
             }
         }
 
