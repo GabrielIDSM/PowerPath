@@ -7,11 +7,13 @@ using PowerPath.Domain.Interfaces.Services;
 
 namespace PowerPath.Application.Services
 {
-    public class MedidorApplicationService(IMedidorRepositoryFacade medidorRepository,
+    public class MedidorApplicationService(ILogApplicationService logAppService,
+        IMedidorRepositoryFacade medidorRepository,
         IMedidorService medidorService,
         IMapper mapper) : IMedidorApplicationService
     {
         private const string SEPARADOR = ";";
+        private readonly ILogApplicationService _logAppService = logAppService;
         private readonly IMedidorRepositoryFacade _medidorRepository = medidorRepository;
         private readonly IMedidorService _medidorService = medidorService;
         private readonly IMapper _mapper = mapper;
@@ -20,6 +22,7 @@ namespace PowerPath.Application.Services
         {
             try
             {
+                _logAppService.Criar("Alterar Registro", $"Tentativa de alteração de registro de medidor para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                 _medidorService.Validar(instalacao, lote);
                 Medidor? medidor = _medidorRepository.Obter(instalacao!, lote!.Value);
 
@@ -28,11 +31,12 @@ namespace PowerPath.Application.Services
                     _medidorService.Atualizar(medidor, operadora, fabricante, modelo, versao);
                     _medidorRepository.Atualizar(medidor);
                     _medidorRepository.Salvar();
+                    _logAppService.Criar("Alterar Registro", $"Registro alterado para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                     return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
                 }
                 else
                 {
-                    return Resposta<MedidorDTO>.Erro($"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
+                    return Resposta<MedidorDTO>.Erro($"Registro de medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
             }
             catch (Exception e)
@@ -45,16 +49,18 @@ namespace PowerPath.Application.Services
         {
             try
             {
+                _logAppService.Criar("Consulta Simples", $"Tentativa de consulta de registro de medidor para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                 _medidorService.Validar(instalacao, lote);
                 Medidor? medidor = _medidorRepository.Obter(instalacao!, lote!.Value);
 
                 if (medidor is not null && medidor.Excluido == 0)
                 {
+                    _logAppService.Criar("Consulta Simples", $"Consulta de registro de medidor para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                     return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
                 }
                 else
                 {
-                    return Resposta<MedidorDTO>.Erro($"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
+                    return Resposta<MedidorDTO>.Erro($"Registro de medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
             }
             catch (Exception e)
@@ -67,6 +73,7 @@ namespace PowerPath.Application.Services
         {
             try
             {
+                _logAppService.Criar("Consulta Completa", $"Consulta completa de registros de medidores");
                 return Resposta<List<MedidorDTO>>.Sucesso(_mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar()));
             }
             catch (Exception e)
@@ -79,6 +86,7 @@ namespace PowerPath.Application.Services
         {
             try
             {
+                _logAppService.Criar("Excluir Registro", $"Tentativa de exclusão de registro de medidor para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                 _medidorService.Validar(instalacao, lote);
                 Medidor? medidor = _medidorRepository.Obter(instalacao!, lote!.Value);
 
@@ -87,11 +95,12 @@ namespace PowerPath.Application.Services
                     _medidorService.Excluir(medidor);
                     _medidorRepository.Atualizar(medidor);
                     _medidorRepository.Salvar();
+                    _logAppService.Criar("Excluir Registro", $"Registro de medidor excluído para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                     return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
                 }
                 else
                 {
-                    return Resposta<MedidorDTO>.Erro($"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
+                    return Resposta<MedidorDTO>.Erro($"Registro de medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
             }
             catch (Exception e)
@@ -104,6 +113,7 @@ namespace PowerPath.Application.Services
         {
             try
             {
+                _logAppService.Criar("Inserir Registro", $"Tentativa de inserção de registro de medidor para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                 _medidorService.Validar(instalacao, lote);
                 Medidor? medidor = _medidorRepository.Obter(instalacao!, lote!.Value);
 
@@ -121,9 +131,10 @@ namespace PowerPath.Application.Services
                 }
                 else
                 {
-                    return Resposta<MedidorDTO>.Erro($"Medidor não encontrado para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
+                    return Resposta<MedidorDTO>.Erro($"Registro de medidor já inserido para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
 
+                _logAppService.Criar("Inserir Registro", $"Registro de medidor inserido para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                 return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
             }
             catch (Exception e)
@@ -136,6 +147,8 @@ namespace PowerPath.Application.Services
         {
             try
             {
+                _logAppService.Criar("Inserção Massiva", $"Tentativa de inserção de registros de medidores");
+
                 if (!File.Exists(caminhoArquivo))
                     return Resposta<List<MedidorDTO>>.Erro($"Arquivo não encontrado em: \"{caminhoArquivo}\".");
 
@@ -168,14 +181,14 @@ namespace PowerPath.Application.Services
                     }
                     else
                     {
-                        return Resposta<List<MedidorDTO>>.Erro($"Medidor não encontrado para Instalação: \"{medidor.Instalacao}\" e Lote: \"{medidor.Lote}\".");
+                        return Resposta<List<MedidorDTO>>.Erro($"Registro de medidor não encontrado para Instalação: \"{medidor.Instalacao}\" e Lote: \"{medidor.Lote}\".");
                     }
                 }
 
                 _medidorRepository.Criar(medidoresParaCriar);
                 _medidorRepository.Atualizar(medidoresParaAtualizar);
                 _medidorRepository.Salvar();
-
+                _logAppService.Criar("Inserção Massiva", $"Inserção massiva de {medidoresParaAtualizar.Count + medidoresParaCriar.Count} registro(s) de medidor(es)");
                 return Resposta<List<MedidorDTO>>.Sucesso(_mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar()));
             }
             catch (Exception e)

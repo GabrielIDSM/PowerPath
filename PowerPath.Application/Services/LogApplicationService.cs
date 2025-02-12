@@ -21,10 +21,17 @@ namespace PowerPath.Application.Services
             _logRepository.Criar(log);
         }
 
-        public List<LogDTO> ListarPorData(int ano, int mes, int dia)
+        public Resposta<List<LogDTO>> ListarPorData(int ano, int mes, int dia)
         {
-            List<Log> logs = _logRepository.ListarPorData(ano, mes, dia);
-            return _mapper.Map<List<LogDTO>>(logs);
+            try
+            {
+                List<Log> logs = _logRepository.ListarPorData(ano, mes, dia);
+                return Resposta<List<LogDTO>>.Sucesso(_mapper.Map<List<LogDTO>>(logs));
+            }
+            catch (Exception e)
+            {
+                return Resposta<List<LogDTO>>.Erro(e.Message);
+            }
         }
     }
 }

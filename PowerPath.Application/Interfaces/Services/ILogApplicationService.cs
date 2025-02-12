@@ -6,6 +6,6 @@ namespace PowerPath.Application.Interfaces.Services
     {
         void Criar(string acao, string mensagem);
 
-        List<LogDTO> ListarPorData(int ano, int mes, int dia);
+        Resposta<List<LogDTO>> ListarPorData(int ano, int mes, int dia);
     }
 }
