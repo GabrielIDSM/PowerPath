@@ -3,10 +3,8 @@ using PowerPath.Domain.Interfaces.Repositories.Base;
 
 namespace PowerPath.Domain.Interfaces.Repositories
 {
-    public interface ILogRepository : IFileBaseRepository<Log>
+    public interface ILogRepository : IBaseRepository<Log>, IBaseFileRepository<Log>
     {
-        void Criar(Log log);
-
         List<Log> ListarPorData(int ano, int mes, int dia);
     }
 }

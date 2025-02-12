@@ -1,10 +1,8 @@
-﻿using PowerPath.Domain.Entities;
-using PowerPath.Domain.Interfaces.Repositories.Base;
+﻿using PowerPath.Domain.Interfaces.Repositories.Base;
 
 namespace PowerPath.Domain.Interfaces.Repositories
 {
-    public interface IMedidorSQLRepository : IMedidorBaseRepository
+    public interface IMedidorSQLRepository : IBaseMedidorRepository, IBaseSQLRepository
     {
-        void Salvar();
     }
 }

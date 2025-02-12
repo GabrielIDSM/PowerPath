@@ -3,7 +3,7 @@ using PowerPath.Domain.Interfaces.Repositories.Base;
 
 namespace PowerPath.Domain.Interfaces.Repositories
 {
-    public interface IMedidorFileRepository : IMedidorBaseRepository, IFileBaseRepository<Medidor>
+    public interface IMedidorFileRepository : IBaseMedidorRepository, IBaseFileRepository<Medidor>
     {
     }
 }

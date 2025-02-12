@@ -2,7 +2,8 @@
 
 namespace PowerPath.Domain.Interfaces.Facades.Repositories
 {
-    public interface IMedidorRepositoryFacade : IMedidorBaseRepository
+    public interface IMedidorRepositoryFacade : IBaseMedidorRepository
     {
+        void Salvar();
     }
 }

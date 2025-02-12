@@ -14,9 +14,19 @@ namespace PowerPath.Infra.SQL.Repositories
             _context.Entry(medidor).State = EntityState.Modified;
         }
 
+        public void Atualizar(List<Medidor> medidores)
+        {
+            _context.Medidor.UpdateRange(medidores);
+        }
+
         public void Criar(Medidor medidor)
         {
             _context.Medidor.Add(medidor);
+        }
+
+        public void Criar(List<Medidor> medidores)
+        {
+            _context.Medidor.AddRange(medidores);
         }
 
         public List<Medidor> Listar(bool incluirExcluidos = false)

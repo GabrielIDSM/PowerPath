@@ -38,6 +38,9 @@ namespace PowerPath.Domain.Services
 
         public void Excluir(Medidor medidor)
         {
+            if (medidor.Excluido == 1)
+                throw new ArgumentException("O medidor já foi excluído anteriormente.", nameof(medidor));
+
             medidor.Excluido = 1;
         }
 
@@ -46,15 +49,20 @@ namespace PowerPath.Domain.Services
             return EnumExtensions.GetDescriptions<Operadora>();
         }
 
-        private void Validar(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao)
+        public void Validar(string? instalacao, int? lote)
         {
-            List<string> operadoras = ListarOperadoras();
-
             if (string.IsNullOrWhiteSpace(instalacao))
                 throw new ArgumentException("O valor do campo \"Instalação\" não pode ser nulo ou vazio.", nameof(instalacao));
 
             if (lote is null || lote < 1 || lote > 10)
                 throw new ArgumentException("O valor do campo \"Lote\" precisa ser um inteiro de 1 a 10.", nameof(lote));
+        }
+
+        public void Validar(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao)
+        {
+            Validar(instalacao, lote);
+
+            List<string> operadoras = ListarOperadoras();
 
             if (string.IsNullOrWhiteSpace(operadora) || !operadoras.Contains(operadora!))
                 throw new ArgumentException($"O valor do campo \"Operadora\" precisa ser um dos valores a seguir: {string.Join(", ", operadoras)}.", nameof(operadora));
@@ -63,10 +71,10 @@ namespace PowerPath.Domain.Services
                 throw new ArgumentException("O valor do campo \"Fabricante\" não pode ser nulo ou vazio.", nameof(fabricante));
 
             if (modelo is null)
-                throw new ArgumentException("O valor do campo \"Modelo\" não pode ser nulo.", nameof(lote));
+                throw new ArgumentException("O valor do campo \"Modelo\" não pode ser nulo.", nameof(modelo));
 
             if (versao is null)
-                throw new ArgumentException("O valor do campo \"Versão\" não pode ser nulo.", nameof(lote));
+                throw new ArgumentException("O valor do campo \"Versão\" não pode ser nulo.", nameof(versao));
         }
     }
 }

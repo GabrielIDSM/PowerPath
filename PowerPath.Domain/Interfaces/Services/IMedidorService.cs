@@ -11,5 +11,9 @@ namespace PowerPath.Domain.Interfaces.Services
         void Excluir(Medidor medidor);
 
         List<string> ListarOperadoras();
+
+        void Validar(string? instalacao, int? lote);
+
+        void Validar(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao);
     }
 }

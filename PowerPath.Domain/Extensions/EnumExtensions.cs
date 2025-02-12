@@ -15,7 +15,8 @@ namespace PowerPath.Domain.Extensions
             if (attribute is not null)
             {
                 return attribute.Description;
-            } else
+            }
+            else
             {
                 throw new ArgumentException($"Nenhuma descrição encontrada para o valor \"{value}\"", nameof(value));
             }

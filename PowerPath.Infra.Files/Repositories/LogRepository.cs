@@ -7,16 +7,16 @@ namespace PowerPath.Infra.Files.Repositories
 {
     public class LogRepository : ILogRepository
     {
-        private readonly string _filePath;
-        private readonly string _rootPath;
+        private readonly string _caminhoArquivo;
+        private readonly string _caminhoRaiz;
 
         public LogRepository(IConfiguration configuration)
         {
-            _rootPath = configuration["Log:RootPath"]!;
-            _filePath = $"{_rootPath}_{DateTime.Now:yyyyMMdd}.txt";
+            _caminhoRaiz = configuration["Log:RootPath"]!;
+            _caminhoArquivo = $"{_caminhoRaiz}_{DateTime.Now:yyyyMMdd}.txt";
 
-            if (!File.Exists(_filePath))
-                File.WriteAllText(_filePath, "");
+            if (!File.Exists(_caminhoArquivo))
+                File.WriteAllText(_caminhoArquivo, "");
         }
 
         public void Criar(Log log)
@@ -27,16 +27,16 @@ namespace PowerPath.Infra.Files.Repositories
         public List<Log> ListarPorData(int ano, int mes, int dia)
         {
             DateTime dateTime = new(ano, mes, dia);
-            string filePath = $"{_rootPath}_{dateTime:yyyyMMdd}.txt";
+            string caminhoArquivo = $"{_caminhoRaiz}_{dateTime:yyyyMMdd}.txt";
 
-            return File.ReadAllLines(filePath)
+            return File.ReadAllLines(caminhoArquivo)
                 .Select(ParaObjeto)
                 .ToList();
         }
 
         public void AnexarAoArquivo(Log log)
         {
-            using var sw = File.AppendText(_filePath);
+            using var sw = File.AppendText(_caminhoArquivo);
             sw.WriteLine(ParaLinha(log));
         }
 
