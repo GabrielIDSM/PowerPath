@@ -183,7 +183,7 @@ namespace PowerPath.Application.Services
                 _medidorRepository.Atualizar(medidoresParaAtualizar);
                 _medidorRepository.Salvar();
                 _logAppService.Criar("Inserção Massiva", $"Inserção massiva de {medidoresParaAtualizar.Count + medidoresParaCriar.Count} registro(s) de medidor(es)");
-                return Resposta<List<MedidorDTO>>.Sucesso(_mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar()));
+                return Resposta<List<MedidorDTO>>.Sucesso(_mapper.Map<List<MedidorDTO>>(medidoresParaAtualizar.Concat(medidoresParaCriar)));
             }
             catch (Exception e)
             {
@@ -234,6 +234,7 @@ namespace PowerPath.Application.Services
                 throw new ArgumentException($"Arquivo não encontrado em: \"{caminhoArquivo}\".");
 
             List<Medidor> medidores = File.ReadAllLines(caminhoArquivo)
+                .Skip(1)
                 .Select(ParaObjeto)
                 .ToList();
 

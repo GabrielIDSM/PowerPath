@@ -35,7 +35,7 @@ namespace PowerPath.Infra.Files.Repositories
                 int index = todosMedidores.FindIndex(r => r.Instalacao == m.Instalacao && r.Lote == m.Lote);
                 todosMedidores[index] = m;
             });
-            Salvar(medidores);
+            Salvar(todosMedidores);
         }
 
         public void Criar(Medidor medidor)
