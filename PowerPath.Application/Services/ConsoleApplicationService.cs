@@ -164,8 +164,8 @@ namespace PowerPath.Application.Services
 
             ImprimirTabela("Lista de comandos", ["Comando", "Descrição", "Argumentos"], tabela);
             Console.WriteLine("Exemplos:");
-            Console.WriteLine("i \"1235 ABCD\" 1 Claro ABC 1 1");
-            Console.WriteLine("c 1235ABCD 1");
+            Console.WriteLine("i \"1234 ABCD\" 1 Claro ABC 1 1");
+            Console.WriteLine("c 1234ABCD 1");
         }
 
         private static int? ParaIntOuNulo(string? valor)

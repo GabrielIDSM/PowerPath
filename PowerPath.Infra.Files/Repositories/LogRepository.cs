@@ -13,7 +13,7 @@ namespace PowerPath.Infra.Files.Repositories
         public LogRepository(IConfiguration configuration)
         {
             _caminhoRaiz = configuration["Log:RootPath"]!;
-            _caminhoArquivo = $"{_caminhoRaiz}_{DateTime.Now:yyyyMMdd}.txt";
+            _caminhoArquivo = $"{_caminhoRaiz}{DateTime.Now:yyyyMMdd}.txt";
 
             if (!File.Exists(_caminhoArquivo))
                 File.WriteAllText(_caminhoArquivo, "");
