@@ -42,7 +42,7 @@ namespace PowerPath.Application.Services
                                 medidor.Modelo, medidor.Fabricante, medidor.Versao]);
                         }
 
-                        ImprimirTabela("Lista de comandos", ["Instalação", "Lote", "Operadora", "Fabricante", "Modelo", "Versão"], tabela);
+                        ImprimirTabela("Lista de registros de medidores", ["Instalação", "Lote", "Operadora", "Fabricante", "Modelo", "Versão"], tabela);
                     }
                     else
                     {
