@@ -22,7 +22,7 @@ public partial class PowerPathContext(IConfiguration configuration, DbContextOpt
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .UseCollation("utf8mb4_0900_ai_ci")
+            .UseCollation("utf8mb4_bin")
             .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<Medidor>(entity =>

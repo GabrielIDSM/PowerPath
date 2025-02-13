@@ -38,8 +38,7 @@ class Program
             {
                 string environment = context.HostingEnvironment.EnvironmentName;
 
-                config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                      .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
+                config.AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
             })
             .ConfigureServices((context, services) =>
             {

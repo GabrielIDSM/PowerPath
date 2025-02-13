@@ -11,7 +11,7 @@ namespace PowerPath.Infra.SQL.Repositories
 
         public void Atualizar(Medidor medidor)
         {
-            _context.Entry(medidor).State = EntityState.Modified;
+            _context.Medidor.Update(medidor);
         }
 
         public void Atualizar(List<Medidor> medidores)

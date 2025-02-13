@@ -183,8 +183,7 @@ namespace PowerPath.Application.Services
 
             foreach (MedidorDTO medidor in medidores)
             {
-                tabela.Add([medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante,
-                                medidor.Modelo, medidor.Fabricante, medidor.Versao]);
+                tabela.Add([medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante, medidor.Modelo, medidor.Versao]);
             }
 
             ImprimirTabela(titulo, _cabecalhoMedidor, tabela);
@@ -194,8 +193,7 @@ namespace PowerPath.Application.Services
         {
             List<List<object>> tabela = [];
 
-            tabela.Add([medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante,
-                medidor.Modelo, medidor.Fabricante, medidor.Versao]);
+            tabela.Add([medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante, medidor.Modelo, medidor.Versao]);
 
             ImprimirTabela(titulo, _cabecalhoMedidor, tabela);
         }
