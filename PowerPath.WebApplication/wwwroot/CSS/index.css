@@ -96,14 +96,19 @@ html {
                 color: rgba(var(--magnolia), 1);
             }
 
-            .Login .Entrar .Container p {
+            .Login .Entrar .Container > p {
                 margin: 0;
+                padding-bottom: 20px;
                 line-height: 32px;
                 font-size: 22pt;
             }
 
-                .Login .Entrar .Container p b {
+                .Login .Entrar .Container > p b {
                     color: rgba(var(--van-dyke), 1);
+                }
+
+                .Login .Entrar .Container > a i {
+                    margin-right: 5px;
                 }
 
 /* Telas menores que 1080px */
