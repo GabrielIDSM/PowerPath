@@ -1,8 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Power Path";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="Login">
+    <div class="Imagem">
+        <img src="~/Asset/Login.jpg" />
+        <div class="Sombra"></div>
+    </div>
+    <div class="Entrar">
+        <div class="Container">
+            <p>Olá,<br/>Bem-vindo(a) ao <b>Power Path</b>!</p>
+            <a class="btn" asp-controller="Home" asp-action="Medidores">Acessar</a>
+        </div>
+    </div>
+</section>

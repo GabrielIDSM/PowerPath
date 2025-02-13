@@ -12,4 +12,8 @@
     <ProjectReference Include="..\PowerPath.Infra.SQL\PowerPath.Infra.SQL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Asset\" />
+  </ItemGroup>
+
 </Project>

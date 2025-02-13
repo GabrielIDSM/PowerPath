@@ -15,5 +15,15 @@ namespace PowerPath.WebApplication.Controllers
         {
             return View();
         }
+
+        public IActionResult Medidores()
+        {
+            return View();
+        }
+
+        public IActionResult Log()
+        {
+            return View();
+        }
     }
 }
