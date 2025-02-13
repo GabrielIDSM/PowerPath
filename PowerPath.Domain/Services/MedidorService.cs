@@ -64,6 +64,9 @@ namespace PowerPath.Domain.Services
             if (string.IsNullOrWhiteSpace(instalacao))
                 throw new ArgumentException("O valor do campo \"Instalação\" não pode ser nulo ou vazio.");
 
+            if (instalacao.Length > 10)
+                throw new ArgumentException("O valor do campo \"Instalação\" não pode possuir mais que 10 caracteres.");
+
             if (lote is null || lote < 1 || lote > 10)
                 throw new ArgumentException("O valor do campo \"Lote\" precisa ser um inteiro de 1 a 10.");
         }
@@ -79,6 +82,9 @@ namespace PowerPath.Domain.Services
 
             if (string.IsNullOrWhiteSpace(fabricante))
                 throw new ArgumentException("O valor do campo \"Fabricante\" não pode ser nulo ou vazio.");
+
+            if (fabricante.Length > 15)
+                throw new ArgumentException("O valor do campo \"Fabricante\" não pode possuir mais que 15 caracteres.");
 
             if (modelo is null)
                 throw new ArgumentException("O valor do campo \"Modelo\" não pode ser nulo.");
