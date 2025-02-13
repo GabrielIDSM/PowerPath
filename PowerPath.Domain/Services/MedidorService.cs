@@ -38,10 +38,20 @@ namespace PowerPath.Domain.Services
 
         public void Excluir(Medidor medidor)
         {
-            if (medidor.Excluido == 1)
+            if (IsExcluido(medidor))
                 throw new ArgumentException("O medidor já foi excluído anteriormente.", nameof(medidor));
 
             medidor.Excluido = 1;
+        }
+
+        public bool IsAtivo(Medidor? medidor)
+        {
+            return medidor is not null && medidor.Excluido == 0;
+        }
+
+        public bool IsExcluido(Medidor? medidor)
+        {
+            return medidor is not null && medidor.Excluido == 1;
         }
 
         public List<string> ListarOperadoras()

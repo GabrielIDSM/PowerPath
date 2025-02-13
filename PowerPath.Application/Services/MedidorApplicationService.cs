@@ -26,10 +26,10 @@ namespace PowerPath.Application.Services
                 _medidorService.Validar(instalacao, lote);
                 Medidor? medidor = _medidorRepository.Obter(instalacao!, lote!.Value);
 
-                if (medidor is not null && medidor.Excluido == 0)
+                if (_medidorService.IsAtivo(medidor))
                 {
-                    _medidorService.Atualizar(medidor, operadora, fabricante, modelo, versao);
-                    _medidorRepository.Atualizar(medidor);
+                    _medidorService.Atualizar(medidor!, operadora, fabricante, modelo, versao);
+                    _medidorRepository.Atualizar(medidor!);
                     _medidorRepository.Salvar();
                     _logAppService.Criar("Alterar Registro", $"Registro alterado para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                     return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
@@ -53,7 +53,7 @@ namespace PowerPath.Application.Services
                 _medidorService.Validar(instalacao, lote);
                 Medidor? medidor = _medidorRepository.Obter(instalacao!, lote!.Value);
 
-                if (medidor is not null && medidor.Excluido == 0)
+                if (_medidorService.IsAtivo(medidor))
                 {
                     _logAppService.Criar("Consulta Simples", $"Consulta de registro de medidor para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                     return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
@@ -90,10 +90,10 @@ namespace PowerPath.Application.Services
                 _medidorService.Validar(instalacao, lote);
                 Medidor? medidor = _medidorRepository.Obter(instalacao!, lote!.Value);
 
-                if (medidor is not null && medidor.Excluido == 0)
+                if (_medidorService.IsAtivo(medidor))
                 {
-                    _medidorService.Excluir(medidor);
-                    _medidorRepository.Atualizar(medidor);
+                    _medidorService.Excluir(medidor!);
+                    _medidorRepository.Atualizar(medidor!);
                     _medidorRepository.Salvar();
                     _logAppService.Criar("Excluir Registro", $"Registro de medidor excluído para Instalação: \"{instalacao}\" e Lote: \"{lote}\"");
                     return Resposta<MedidorDTO>.Sucesso(_mapper.Map<MedidorDTO>(medidor));
@@ -123,7 +123,7 @@ namespace PowerPath.Application.Services
                     _medidorRepository.Criar(medidor);
                     _medidorRepository.Salvar();
                 }
-                else if (medidor is not null && medidor.Excluido == 1)
+                else if (_medidorService.IsExcluido(medidor))
                 {
                     _medidorService.Atualizar(medidor, operadora, fabricante, modelo, versao);
                     _medidorRepository.Atualizar(medidor);
@@ -148,13 +148,7 @@ namespace PowerPath.Application.Services
             try
             {
                 _logAppService.Criar("Inserção Massiva", $"Tentativa de inserção de registros de medidores");
-
-                if (!File.Exists(caminhoArquivo))
-                    return Resposta<List<MedidorDTO>>.Erro($"Arquivo não encontrado em: \"{caminhoArquivo}\".");
-
-                List<Medidor> medidores = File.ReadAllLines(caminhoArquivo)
-                    .Select(ParaObjeto)
-                    .ToList();
+                List<Medidor> medidores = CSVParaLista(caminhoArquivo);
                 List<Medidor> medidoresCadastrados = _medidorRepository.Listar(true);
                 List<Medidor> medidoresParaCriar = [];
                 List<Medidor> medidoresParaAtualizar = [];
@@ -174,7 +168,7 @@ namespace PowerPath.Application.Services
                         Medidor medidorParaCriar = _medidorService.Criar(medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante, medidor.Modelo, medidor.Versao);
                         medidoresParaCriar.Add(medidorParaCriar);
                     }
-                    else if (medidorCadastrado is not null && medidorCadastrado.Excluido == 1)
+                    else if (_medidorService.IsExcluido(medidorCadastrado))
                     {
                         _medidorService.Atualizar(medidorCadastrado, medidor.Operadora, medidor.Fabricante, medidor.Modelo, medidor.Versao);
                         medidoresParaAtualizar.Add(medidorCadastrado);
@@ -197,18 +191,53 @@ namespace PowerPath.Application.Services
             }
         }
 
+        public Resposta<List<string>> ListarOperadoras()
+        {
+            try
+            {
+                return Resposta<List<string>>.Sucesso(_medidorService.ListarOperadoras());
+            }
+            catch (Exception e)
+            {
+                return Resposta<List<string>>.Erro(e.Message);
+            }
+        }
+
         private Medidor ParaObjeto(string linha)
         {
-            string[]? colunas = linha.Split(SEPARADOR);
-            return new Medidor
+            try
             {
-                Instalacao = colunas[0],
-                Lote = int.Parse(colunas[1]),
-                Operadora = colunas[2],
-                Fabricante = colunas[3],
-                Modelo = int.Parse(colunas[4]),
-                Versao = int.Parse(colunas[5])
-            };
+                string[] colunas = linha.Split(SEPARADOR);
+                return new Medidor
+                {
+                    Instalacao = colunas[0],
+                    Lote = int.Parse(colunas[1]),
+                    Operadora = colunas[2],
+                    Fabricante = colunas[3],
+                    Modelo = int.Parse(colunas[4]),
+                    Versao = int.Parse(colunas[5])
+                };
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new ArgumentException($"Os campos Instalação, Lote, Operadora, Fabricante, Modelo e Versão são obrigatórios.");
+            }
+            catch (Exception e) when (e is ArgumentNullException || e is FormatException || e is OverflowException)
+            {
+                throw new ArgumentException($"Os campos Lote, Modelo e Versão precisam possuir valores inteiros válidos.");
+            }
+        }
+
+        private List<Medidor> CSVParaLista(string? caminhoArquivo)
+        {
+            if (!File.Exists(caminhoArquivo))
+                throw new ArgumentException($"Arquivo não encontrado em: \"{caminhoArquivo}\".", nameof(caminhoArquivo));
+            
+            List<Medidor> medidores = File.ReadAllLines(caminhoArquivo)
+                .Select(ParaObjeto)
+                .ToList();
+
+            return medidores;
         }
     }
 }

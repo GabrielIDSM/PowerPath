@@ -15,5 +15,9 @@ namespace PowerPath.Domain.Interfaces.Services
         void Validar(string? instalacao, int? lote);
 
         void Validar(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao);
+
+        bool IsAtivo(Medidor? medidor);
+
+        bool IsExcluido(Medidor? medidor);
     }
 }
