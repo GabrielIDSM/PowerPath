@@ -231,7 +231,7 @@ namespace PowerPath.Application.Services
         private List<Medidor> CSVParaLista(string? caminhoArquivo)
         {
             if (!File.Exists(caminhoArquivo))
-                throw new ArgumentException($"Arquivo não encontrado em: \"{caminhoArquivo}\".", nameof(caminhoArquivo));
+                throw new ArgumentException($"Arquivo não encontrado em: \"{caminhoArquivo}\".");
 
             List<Medidor> medidores = File.ReadAllLines(caminhoArquivo)
                 .Select(ParaObjeto)

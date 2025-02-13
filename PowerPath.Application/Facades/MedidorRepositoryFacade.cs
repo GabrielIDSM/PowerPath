@@ -42,12 +42,12 @@ namespace PowerPath.Application.Facades
 
         public List<Medidor> Listar(bool incluirExcluidos = false)
         {
-            return _medidorFileRepository.Listar(incluirExcluidos);
+            return _medidorSQLRepository.Listar(incluirExcluidos);
         }
 
         public Medidor? Obter(string instalacao, int lote)
         {
-            return _medidorFileRepository.Obter(instalacao, lote);
+            return _medidorSQLRepository.Obter(instalacao, lote);
         }
 
         public void Salvar()

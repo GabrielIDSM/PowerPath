@@ -39,7 +39,7 @@ namespace PowerPath.Domain.Services
         public void Excluir(Medidor medidor)
         {
             if (IsExcluido(medidor))
-                throw new ArgumentException("O medidor já foi excluído anteriormente.", nameof(medidor));
+                throw new ArgumentException("O medidor já foi excluído anteriormente.");
 
             medidor.Excluido = 1;
         }
@@ -62,10 +62,10 @@ namespace PowerPath.Domain.Services
         public void Validar(string? instalacao, int? lote)
         {
             if (string.IsNullOrWhiteSpace(instalacao))
-                throw new ArgumentException("O valor do campo \"Instalação\" não pode ser nulo ou vazio.", nameof(instalacao));
+                throw new ArgumentException("O valor do campo \"Instalação\" não pode ser nulo ou vazio.");
 
             if (lote is null || lote < 1 || lote > 10)
-                throw new ArgumentException("O valor do campo \"Lote\" precisa ser um inteiro de 1 a 10.", nameof(lote));
+                throw new ArgumentException("O valor do campo \"Lote\" precisa ser um inteiro de 1 a 10.");
         }
 
         public void Validar(string? instalacao, int? lote, string? operadora, string? fabricante, int? modelo, int? versao)
@@ -75,16 +75,16 @@ namespace PowerPath.Domain.Services
             List<string> operadoras = ListarOperadoras();
 
             if (string.IsNullOrWhiteSpace(operadora) || !operadoras.Contains(operadora!))
-                throw new ArgumentException($"O valor do campo \"Operadora\" precisa ser um dos valores a seguir: {string.Join(", ", operadoras)}.", nameof(operadora));
+                throw new ArgumentException($"O valor do campo \"Operadora\" precisa ser um dos valores a seguir: {string.Join(", ", operadoras)}.");
 
             if (string.IsNullOrWhiteSpace(fabricante))
-                throw new ArgumentException("O valor do campo \"Fabricante\" não pode ser nulo ou vazio.", nameof(fabricante));
+                throw new ArgumentException("O valor do campo \"Fabricante\" não pode ser nulo ou vazio.");
 
             if (modelo is null)
-                throw new ArgumentException("O valor do campo \"Modelo\" não pode ser nulo.", nameof(modelo));
+                throw new ArgumentException("O valor do campo \"Modelo\" não pode ser nulo.");
 
             if (versao is null)
-                throw new ArgumentException("O valor do campo \"Versão\" não pode ser nulo.", nameof(versao));
+                throw new ArgumentException("O valor do campo \"Versão\" não pode ser nulo.");
         }
     }
 }

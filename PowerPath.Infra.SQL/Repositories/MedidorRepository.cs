@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PowerPath.Domain.Entities;
+﻿using PowerPath.Domain.Entities;
 using PowerPath.Domain.Interfaces.Repositories;
 using PowerPath.Infra.SQL.Contexts;
 
