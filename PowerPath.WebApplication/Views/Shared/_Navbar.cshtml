@@ -1,0 +1,18 @@
+﻿<nav class="Navbar navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand Logo" asp-controller="Home" asp-action="Index">Power Path</a>
+        <div class="collapse navbar-collapse" id="navbarToggler">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link @((string?)ViewData["Title"] == "Medidores" ? "active" : "")" asp-controller="Medidor" asp-action="Index"><i class="fa-solid fa-tablet-screen-button"></i>Medidores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @((string?)ViewData["Title"] == "Log" ? "active" : "")" asp-controller="Log" asp-action="Index"><i class="fa-solid fa-book"></i>Log</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

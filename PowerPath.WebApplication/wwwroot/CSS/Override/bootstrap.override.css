@@ -1,1 +1,16 @@
-﻿
+﻿.nav-item > a.active {
+    color: rgba(var(--magnolia), 1) !important;
+}
+
+.nav-item > a {
+    font-weight: 400;
+    color: rgba(var(--magnolia), 0.7);
+}
+
+.nav-item > a:hover {
+    color: rgba(var(--magnolia), 1) !important;
+}
+
+.navbar-toggler {
+    background-color: rgba(var(--magnolia), 1) !important;
+}

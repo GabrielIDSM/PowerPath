@@ -111,6 +111,21 @@ html {
                     margin-right: 5px;
                 }
 
+.Navbar {
+    background-color: rgba(var(--van-dyke), 1);
+    color: rgba(var(--magnolia), 1);
+}
+
+    .Navbar .Logo {
+        font-weight: 800;
+        font-size: 18pt;
+        color: rgba(var(--magnolia), 1);
+    }
+
+        .Navbar a i {
+            margin-right: 5px;
+        }
+
 /* Telas menores que 1080px */
 
 @media (max-width: 1080px) {
