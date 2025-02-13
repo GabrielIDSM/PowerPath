@@ -7,7 +7,7 @@ namespace PowerPath.Application.Services
 {
     public class ConsoleApplicationService(IMedidorApplicationService medidorApplicationService) : IConsoleApplicationService
     {
-
+        private static readonly List<string> _cabecalhoMedidor = ["Instalação", "Lote", "Operadora", "Fabricante", "Modelo", "Versão"];
         private readonly IMedidorApplicationService _medidorApplicationService = medidorApplicationService;
 
         public void ProcessarComando(string? comando)
@@ -15,43 +15,132 @@ namespace PowerPath.Application.Services
             if (string.IsNullOrWhiteSpace(comando) || "?".Equals(comando?.Trim()))
                 Ajuda();
 
+            Resposta<MedidorDTO> resposta;
+            Resposta<List<MedidorDTO>> respostaComLista;
             ComandoFormatado comandoFormatado = FormatarComando(comando!);
+            int argumentosCount = comandoFormatado.Argumentos?.Count ?? 0;
 
             switch (comandoFormatado.Operacao)
             {
                 case 'i':
-                    break;
-                case 'd':
-                    break;
-                case 'e':
-                    break;
-                case 'm':
-                    break;
-                case 'c':
-                    break;
-                case 'l':
-                    Resposta<List<MedidorDTO>> resposta = _medidorApplicationService.Consultar();
-                    if (resposta.IsSucesso)
+                    if (argumentosCount == 6)
                     {
-                        List<MedidorDTO> medidores = resposta.Resultado!;
-                        List<List<object>> tabela = [];
-
-                        foreach (MedidorDTO medidor in medidores)
+                        int? lote = ParaIntOuNulo(comandoFormatado.Argumentos?[1]);
+                        int? modelo = ParaIntOuNulo(comandoFormatado.Argumentos?[4]);
+                        int? versao = ParaIntOuNulo(comandoFormatado.Argumentos?[5]);
+                        resposta = _medidorApplicationService.Inserir(comandoFormatado.Argumentos?[0], lote, comandoFormatado.Argumentos?[2],
+                            comandoFormatado.Argumentos?[3], modelo, versao);
+                        if (resposta.IsSucesso)
                         {
-                            tabela.Add([medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante,
-                                medidor.Modelo, medidor.Fabricante, medidor.Versao]);
+                            MedidorDTO medidor = resposta.Resultado!;
+                            ImprimirMedidor("Medidor inserido", medidor);
                         }
-
-                        ImprimirTabela("Lista de registros de medidores", ["Instalação", "Lote", "Operadora", "Fabricante", "Modelo", "Versão"], tabela);
+                        else
+                        {
+                            Console.WriteLine(resposta.Mensagem);
+                        }
                     }
                     else
                     {
-                        Console.WriteLine(resposta.Mensagem);
+                        Console.WriteLine("O número de argumentos é inválido.");
+                    }
+                    break;
+                case 'd':
+                    if (argumentosCount == 2)
+                    {
+                        int? lote = ParaIntOuNulo(comandoFormatado.Argumentos?[1]);
+                        resposta = _medidorApplicationService.Excluir(comandoFormatado.Argumentos?[0], lote);
+                        if (resposta.IsSucesso)
+                        {
+                            MedidorDTO medidor = resposta.Resultado!;
+                            ImprimirMedidor("Medidor excluído", medidor);
+                        }
+                        else
+                        {
+                            Console.WriteLine(resposta.Mensagem);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("O número de argumentos é inválido.");
+                    }
+                    break;
+                case 'e':
+                    if (argumentosCount == 6)
+                    {
+                        int? lote = ParaIntOuNulo(comandoFormatado.Argumentos?[1]);
+                        int? modelo = ParaIntOuNulo(comandoFormatado.Argumentos?[4]);
+                        int? versao = ParaIntOuNulo(comandoFormatado.Argumentos?[5]);
+                        resposta = _medidorApplicationService.Alterar(comandoFormatado.Argumentos?[0], lote, comandoFormatado.Argumentos?[2],
+                            comandoFormatado.Argumentos?[3], modelo, versao);
+                        if (resposta.IsSucesso)
+                        {
+                            MedidorDTO medidor = resposta.Resultado!;
+                            ImprimirMedidor("Medidor alterado", medidor);
+                        }
+                        else
+                        {
+                            Console.WriteLine(resposta.Mensagem);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("O número de argumentos é inválido.");
+                    }
+                    break;
+                case 'm':
+                    if (argumentosCount == 1)
+                    {
+                        respostaComLista = _medidorApplicationService.Inserir(comandoFormatado.Argumentos?[0]);
+                        if (respostaComLista.IsSucesso)
+                        {
+                            List<MedidorDTO> medidores = respostaComLista.Resultado!;
+                            ImprimirMedidores("Lista de medidores inseridos", medidores);
+                        }
+                        else
+                        {
+                            Console.WriteLine(respostaComLista.Mensagem);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("O número de argumentos é inválido.");
+                    }
+                    break;
+                case 'c':
+                    if (argumentosCount == 2)
+                    {
+                        int? lote = ParaIntOuNulo(comandoFormatado.Argumentos?[1]);
+                        resposta = _medidorApplicationService.Consultar(comandoFormatado.Argumentos?[0], lote);
+                        if (resposta.IsSucesso)
+                        {
+                            MedidorDTO medidor = resposta.Resultado!;
+                            ImprimirMedidor("Medidor consultado", medidor);
+                        }
+                        else
+                        {
+                            Console.WriteLine(resposta.Mensagem);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("O número de argumentos é inválido.");
+                    }
+                    break;
+                case 'l':
+                    respostaComLista = _medidorApplicationService.Consultar();
+                    if (respostaComLista.IsSucesso)
+                    {
+                        List<MedidorDTO> medidores = respostaComLista.Resultado!;
+                        ImprimirMedidores("Lista de medidores", medidores);
+                    }
+                    else
+                    {
+                        Console.WriteLine(respostaComLista.Mensagem);
                     }
                     break;
                 default:
-                    Console.WriteLine($"\"{comando}\" não é reconhecido como um comando, confira os comandos válidos a seguir:");
-                    Ajuda();
+                    Console.WriteLine($"\"{comando}\" não é reconhecido como um comando.");
                     break;
             }
         }
@@ -71,6 +160,38 @@ namespace PowerPath.Application.Services
                 ];
 
             ImprimirTabela("Lista de comandos", ["Comando", "Descrição", "Argumentos"], tabela);
+        }
+
+        private static int? ParaIntOuNulo(string? valor)
+        {
+            if (int.TryParse(valor, out int numero))
+            {
+                return numero;
+            }
+            return null;
+        }
+
+        private static void ImprimirMedidores(string titulo, List<MedidorDTO> medidores)
+        {
+            List<List<object>> tabela = [];
+
+            foreach (MedidorDTO medidor in medidores)
+            {
+                tabela.Add([medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante,
+                                medidor.Modelo, medidor.Fabricante, medidor.Versao]);
+            }
+
+            ImprimirTabela(titulo, _cabecalhoMedidor, tabela);
+        }
+
+        private static void ImprimirMedidor(string titulo, MedidorDTO medidor)
+        {
+            List<List<object>> tabela = [];
+
+            tabela.Add([medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante,
+                medidor.Modelo, medidor.Fabricante, medidor.Versao]);
+
+            ImprimirTabela(titulo, _cabecalhoMedidor, tabela);
         }
 
         private static void ImprimirTabela(string titulo, List<string> cabecalho, List<List<object>> tabela)
