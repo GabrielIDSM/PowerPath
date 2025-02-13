@@ -129,7 +129,7 @@ namespace PowerPath.Application.Services
                     _medidorRepository.Atualizar(medidor);
                     _medidorRepository.Salvar();
                 }
-                else
+                else if (_medidorService.IsAtivo(medidor))
                 {
                     return Resposta<MedidorDTO>.Erro($"Registro de medidor já inserido para Instalação: \"{instalacao}\" e Lote: \"{lote}\".");
                 }
@@ -173,9 +173,9 @@ namespace PowerPath.Application.Services
                         _medidorService.Atualizar(medidorCadastrado, medidor.Operadora, medidor.Fabricante, medidor.Modelo, medidor.Versao);
                         medidoresParaAtualizar.Add(medidorCadastrado);
                     }
-                    else
+                    else if (_medidorService.IsAtivo(medidorCadastrado))
                     {
-                        return Resposta<List<MedidorDTO>>.Erro($"Registro de medidor não encontrado para Instalação: \"{medidor.Instalacao}\" e Lote: \"{medidor.Lote}\".");
+                        return Resposta<List<MedidorDTO>>.Erro($"Registro de medidor já inserido para Instalação: \"{medidorCadastrado.Instalacao}\" e Lote: \"{medidorCadastrado.Lote}\".");
                     }
                 }
 
