@@ -2,6 +2,6 @@
 {
     public interface IConsoleApplicationService
     {
-        string ProcessarComando(string? comando);
+        void ProcessarComando(string? comando);
     }
 }

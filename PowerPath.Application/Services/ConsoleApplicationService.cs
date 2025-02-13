@@ -1,20 +1,62 @@
-﻿using System.Text;
+﻿using System.Text.RegularExpressions;
 using ConsoleTableExt;
+using PowerPath.Application.DTO;
 using PowerPath.Application.Interfaces.Services;
 
 namespace PowerPath.Application.Services
 {
-    public class ConsoleApplicationService : IConsoleApplicationService
+    public class ConsoleApplicationService(IMedidorApplicationService medidorApplicationService) : IConsoleApplicationService
     {
-        public string ProcessarComando(string? comando)
+
+        private readonly IMedidorApplicationService _medidorApplicationService = medidorApplicationService;
+
+        public void ProcessarComando(string? comando)
         {
             if (string.IsNullOrWhiteSpace(comando) || "?".Equals(comando?.Trim()))
                 Ajuda();
 
-            throw new NotImplementedException();
+            ComandoFormatado comandoFormatado = FormatarComando(comando!);
+
+            switch (comandoFormatado.Operacao)
+            {
+                case 'i':
+                    break;
+                case 'd':
+                    break;
+                case 'e':
+                    break;
+                case 'm':
+                    break;
+                case 'c':
+                    break;
+                case 'l':
+                    Resposta<List<MedidorDTO>> resposta = _medidorApplicationService.Consultar();
+                    if (resposta.IsSucesso)
+                    {
+                        List<MedidorDTO> medidores = resposta.Resultado!;
+                        List<List<object>> tabela = [];
+
+                        foreach (MedidorDTO medidor in medidores)
+                        {
+                            tabela.Add([medidor.Instalacao, medidor.Lote, medidor.Operadora, medidor.Fabricante,
+                                medidor.Modelo, medidor.Fabricante, medidor.Versao]);
+                        }
+
+                        ImprimirTabela("Lista de comandos", ["Instalação", "Lote", "Operadora", "Fabricante", "Modelo", "Versão"], tabela);
+                    }
+                    else
+                    {
+                        Console.WriteLine(resposta.Mensagem);
+                    }
+                    break;
+                default:
+                    Console.WriteLine($"\"{comando}\" não é reconhecido como um comando, confira os comandos válidos a seguir:");
+                    Ajuda();
+                    break;
+            }
         }
 
-        static void Ajuda()
+        private static void Ajuda()
         {
             List<List<object>> tabela =
                 [
@@ -28,12 +70,10 @@ namespace PowerPath.Application.Services
                     ["?", "Ajuda"]
                 ];
 
-            Console.WriteLine("PowerPath é um sistema de automatização e otimização de registros de medidores de energia. Os seguintes comandos são suportados:");
-            Console.WriteLine();
             ImprimirTabela("Lista de comandos", ["Comando", "Descrição", "Argumentos"], tabela);
         }
 
-        static void ImprimirTabela(string titulo, List<string> cabecalho, List<List<object>> tabela)
+        private static void ImprimirTabela(string titulo, List<string> cabecalho, List<List<object>> tabela)
         {
             ConsoleTableBuilder
                 .From(tabela)
@@ -41,6 +81,28 @@ namespace PowerPath.Application.Services
                 .WithColumn(cabecalho)
                 .WithFormat(ConsoleTableBuilderFormat.Alternative)
                 .ExportAndWriteLine(TableAligntment.Left);
+        }
+
+        private static ComandoFormatado FormatarComando(string comando)
+        {
+            Match match = Regex.Match(comando, @"^\s*\w\s*(.*)");
+            if (!match.Success) return new();
+
+            char operacao = match.Groups[1].Value.ToLower()[0];
+            string argumentosComoString = match.Groups[2].Value;
+            MatchCollection argumentosMatches = Regex.Matches(argumentosComoString, @"[^\s""]+|""[^""]*""");
+
+            List<string> argumentos = [];
+            foreach (Match param in argumentosMatches)
+            {
+                argumentos.Add(param.Value.Trim('"'));
+            }
+
+            return new()
+            {
+                Operacao = operacao,
+                Argumentos = argumentos
+            };
         }
     }
 }

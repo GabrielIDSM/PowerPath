@@ -232,7 +232,7 @@ namespace PowerPath.Application.Services
         {
             if (!File.Exists(caminhoArquivo))
                 throw new ArgumentException($"Arquivo não encontrado em: \"{caminhoArquivo}\".", nameof(caminhoArquivo));
-            
+
             List<Medidor> medidores = File.ReadAllLines(caminhoArquivo)
                 .Select(ParaObjeto)
                 .ToList();

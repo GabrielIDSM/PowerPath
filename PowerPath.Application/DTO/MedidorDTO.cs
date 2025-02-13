@@ -13,11 +13,5 @@
         public int? Modelo { get; set; }
 
         public int? Versao { get; set; }
-
-        public string? Criacao { get; set; }
-
-        public string? Alteracao { get; set; }
-
-        public bool? Excluido { get; set; }
     }
 }

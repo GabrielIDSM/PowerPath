@@ -1,16 +1,16 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using PowerPath.Application.Services;
-using PowerPath.Domain.Services;
-using PowerPath.Infra.SQL.Contexts;
-using PowerPath.Domain.Interfaces.Services;
-using PowerPath.Application.Interfaces.Services;
 using PowerPath.Application.Facades;
+using PowerPath.Application.Interfaces.Services;
 using PowerPath.Application.Profiles;
+using PowerPath.Application.Services;
 using PowerPath.Domain.Interfaces.Facades.Repositories;
 using PowerPath.Domain.Interfaces.Repositories;
+using PowerPath.Domain.Interfaces.Services;
+using PowerPath.Domain.Services;
 using PowerPath.Infra.Files.Repositories;
+using PowerPath.Infra.SQL.Contexts;
 
 class Program
 {
@@ -26,7 +26,7 @@ class Program
         string? input;
         while ((input = Console.ReadLine())?.ToLower() != "x")
         {
-            Console.WriteLine(_consoleAppService.ProcessarComando(input));
+            _consoleAppService.ProcessarComando(input);
             Console.WriteLine("\n[PowerPath]\nDigite um comando, '?' para exibir ajuda ou 'x' para sair:");
         }
     }
@@ -60,5 +60,5 @@ class Program
 
                 services.AddAutoMapper(typeof(MedidorProfile), typeof(LogProfile));
             });
-    } 
+    }
 }
