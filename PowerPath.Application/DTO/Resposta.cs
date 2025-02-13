@@ -10,7 +10,7 @@
         {
             return new Resposta<Entity>()
             {
-                IsSucesso = false,
+                IsSucesso = true,
                 Resultado = entity
             };
         }

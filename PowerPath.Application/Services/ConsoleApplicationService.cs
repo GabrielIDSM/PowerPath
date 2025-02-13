@@ -88,8 +88,8 @@ namespace PowerPath.Application.Services
             Match match = Regex.Match(comando, @"^\s*\w\s*(.*)");
             if (!match.Success) return new();
 
-            char operacao = match.Groups[1].Value.ToLower()[0];
-            string argumentosComoString = match.Groups[2].Value;
+            char operacao = match.Groups[0].Value.ToLower()[0];
+            string argumentosComoString = match.Groups[1].Value;
             MatchCollection argumentosMatches = Regex.Matches(argumentosComoString, @"[^\s""]+|""[^""]*""");
 
             List<string> argumentos = [];
