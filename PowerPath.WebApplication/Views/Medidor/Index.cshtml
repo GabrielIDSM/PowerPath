@@ -1,7 +1,75 @@
-﻿@{
+﻿@using PowerPath.Application.DTO
+@model List<PowerPath.Application.DTO.MedidorDTO>
+@{
     ViewData["Title"] = "Medidores";
 }
 
 <partial name="_Navbar" />
-<div class="Medidor">
-</div>
+<main>
+    <div class="Titulo">
+        <p>Medidores</p>
+    </div>
+    <div class="Filtros">
+        <div class="Filtro">
+            <input id="instalacao" type="text" placeholder="Instalação" />
+        </div>
+        <div class="Filtro">
+            <input id="lote" type="number" placeholder="Lote" />
+        </div>
+        <div class="Filtro">
+            <select id="operadora" >
+                @foreach (string operadora in (List<string>)ViewBag.Operadoras)
+                {
+                    <option value="@operadora">@operadora</option>
+                }
+            </select>
+        </div>
+        <div class="Filtro">
+            <input id="fabricante" type="text" placeholder="Fabricante" />
+        </div>
+        <div class="Filtro">
+            <input id="modelo" type="number" placeholder="Modelo" />
+        </div>
+        <div class="Filtro">
+            <input id="versao" type="number" placeholder="Versão" />
+        </div>
+    </div>
+    <div class="Medidores">
+        @foreach (MedidorDTO medidor in Model)
+        {
+            <section class="Medidor" data-instalacao="@medidor.Instalacao" data-lote="@medidor.Lote" data-operadora="@medidor.Operadora"
+                     data-fabricante="@medidor.Fabricante" data-modelo="@medidor.Modelo" data-versao="@medidor.Versao">
+                <div class="Container">
+                    <div class="Linha">
+                        <div class="Campo">
+                            <p>Instalação</p>
+                            <p>@medidor.Instalacao</p>
+                        </div>
+                        <div class="Campo">
+                            <p>Lote</p>
+                            <p>@medidor.Instalacao</p>
+                        </div>
+                    </div>
+                    <div class="Linha">
+                        <div class="Campo">
+                            <p>Operadora</p>
+                            <p>@medidor.Operadora</p>
+                        </div>
+                        <div class="Campo">
+                            <p>Fabricante</p>
+                            <p>@medidor.Fabricante</p>
+                        </div>
+                        <div class="Campo">
+                            <p>Modelo</p>
+                            <p>@medidor.Modelo</p>
+                        </div>
+                        <div class="Campo">
+                            <p>Versão</p>
+                            <p>@medidor.Versao</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</main>
