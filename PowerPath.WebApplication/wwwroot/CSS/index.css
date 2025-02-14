@@ -335,7 +335,7 @@ main {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 19px;
 }
 
     .Formulario .Linha {
@@ -345,36 +345,40 @@ main {
     }
 
     .Formulario .Linha .Campo {
+        position: relative;
         flex: 1 1 calc(50% - 10px);
-        height: 50px;
     }
+
+        .Formulario .Linha .Campo > label {
+            margin: 0;
+            padding: 0 2px;
+            z-index: 2;
+            position: absolute;
+            top: -9px;
+            left: 9px;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 18px;
+            color: rgba(var(--van-dyke), 0.85);
+            background-color: rgba(var(--off-white), 1);
+        }
 
         .Formulario .Linha .Campo > input {
             width: 100%;
             height: 50px;
+            padding-left: 5px;
             border: none;
             outline: none;
             background-color: rgba(var(--off-white), 1);
-            border-bottom: solid 1px rgba(var(--van-dyke), 0.5);
+            border-radius: 4px;
+            border: solid 1px rgba(var(--van-dyke), 0.5);
             color: rgba(var(--van-dyke), 1);
         }
 
-            .Formulario .Linha .Campo > input::placeholder {
-                font-weight: 600;
-                color: rgba(var(--van-dyke), 0.8);
-            }
-
-            .Formulario .Linha .Campo > input:focus-visible {
-                border-bottom: solid 1px rgba(var(--van-dyke), 1);
-            }
-
-                .Formulario .Linha .Campo > input:focus-visible::placeholder {
-                    color: rgba(var(--van-dyke), 1);
-                }
-
             .Formulario .Linha .Campo > input:read-only {
-                background-color: rgba(var(--van-dyke), 0.1);
-                border-bottom: solid 1px rgba(var(--van-dyke), 0.1);
+                font-weight: 700;
+                cursor: not-allowed;
+                color: rgba(var(--van-dyke), 0.6);
             }
 
     .Formulario .Botoes {

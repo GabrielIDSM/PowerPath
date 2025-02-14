@@ -7,24 +7,29 @@
             @if (Model.IsAlteracao.HasValue && Model.IsAlteracao.Value)
             {
                 <div class="Campo">
-                    <input type="text" readonly placeholder="Instalação" asp-for="Instalacao" />
+                    <label asp-for="Instalacao">Instalação</label>
+                    <input type="text" readonly asp-for="Instalacao" />
                 </div>
                 <div class="Campo">
-                    <input type="number" readonly placeholder="Lote" asp-for="Lote" />
+                    <label asp-for="Lote">Lote</label>
+                    <input type="number" readonly asp-for="Lote" />
                 </div>
             }
             else
             {
                 <div class="Campo">
-                    <input type="text" placeholder="Instalação" asp-for="Instalacao" />
+                    <label asp-for="Instalacao">Instalação</label>
+                    <input type="text" asp-for="Instalacao" />
                 </div>
                 <div class="Campo">
-                    <input type="number" placeholder="Lote" asp-for="Lote" />
+                    <label asp-for="Lote">Lote</label>
+                    <input type="number" asp-for="Lote" />
                 </div>
             }
         </div>
         <div class="Linha">
             <div class="Campo">
+                <label asp-for="Operadora">Operadora</label>
                 <select asp-for="Operadora">
                     <option></option>
                     @foreach (string operadora in (List<string>)ViewBag.Operadoras)
@@ -41,15 +46,18 @@
                 </select>
             </div>
             <div class="Campo">
-                <input type="text" placeholder="Fabricante" asp-for="Fabricante" />
+                <label asp-for="Fabricante">Fabricante</label>
+                <input type="text" asp-for="Fabricante" />
             </div>
         </div>
         <div class="Linha">
             <div class="Campo">
-                <input type="number" placeholder="Modelo" asp-for="Modelo" />
+                <label asp-for="Modelo">Modelo</label>
+                <input type="number" asp-for="Modelo" />
             </div>
             <div class="Campo">
-                <input type="number" placeholder="Versão" asp-for="Versao" />
+                <label asp-for="Versao">Versão</label>
+                <input type="number" asp-for="Versao" />
             </div>
         </div>
         <div class="Botoes">
