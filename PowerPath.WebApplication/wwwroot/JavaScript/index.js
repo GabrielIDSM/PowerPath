@@ -1,6 +1,12 @@
 ﻿$(function () {
     ConfigurarSelect2()
     ConfigurarFiltros()
+
+    let mensagem = sessionStorage.getItem('Message')
+    if (mensagem) {
+        alert(mensagem)
+        sessionStorage.removeItem('Message')
+    }
 })
 
 function ConfigurarSelect2() {
@@ -55,4 +61,21 @@ function FiltrarMedidores() {
         if (!exibir)
             $medidor.css('display', 'none')
     })
+}
+
+function OnClickExcluirMedidor(instalacao, lote) {
+    if (window.confirm(`Deseja excluir o medidor de Instalação: ${instalacao} e Lote: ${lote}?`)) {
+        $.ajax({
+            url: 'Medidor/Excluir/',
+            type: 'DELETE',
+            data: { instalacao: instalacao, lote: lote },
+            success: function (response) {
+                sessionStorage.setItem('Message', response.mensagem)
+                location.reload()
+            },
+            error: function (xhr) {
+                alert('Erro: ' + xhr.responseJSON.mensagem)
+            }
+        });
+    }
 }

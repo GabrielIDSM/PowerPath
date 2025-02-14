@@ -29,5 +29,20 @@ namespace PowerPath.WebApplication.Controllers
                 return View(new List<MedidorDTO>());
             }
         }
+
+        [HttpDelete]
+        public IActionResult Excluir(string? instalacao, int? lote)
+        {
+            Resposta<MedidorDTO> rExcluirMedidor = _medidorAppService.Excluir(instalacao, lote);
+
+            if (rExcluirMedidor.IsSucesso)
+            {
+                return Ok(new {mensagem = "O medidor foi excluído com sucesso!" });
+            }
+            else
+            {
+                return BadRequest(new { mensagem = rExcluirMedidor.Mensagem });
+            }
+        }
     }
 }
