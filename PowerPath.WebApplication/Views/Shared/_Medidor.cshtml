@@ -1,0 +1,60 @@
+﻿@model PowerPath.Application.DTO.MedidorDTO
+
+<form asp-action="Salvar" asp-controller="Medidor" method="POST">
+    <div class="Formulario">
+        <input type="hidden" asp-for="IsAlteracao" />
+        <div class="Linha">
+            @if (Model.IsAlteracao.HasValue && Model.IsAlteracao.Value)
+            {
+                <div class="Campo">
+                    <input type="text" readonly placeholder="Instalação" asp-for="Instalacao" />
+                </div>
+                <div class="Campo">
+                    <input type="number" readonly placeholder="Lote" asp-for="Lote" />
+                </div>
+            }
+            else
+            {
+                <div class="Campo">
+                    <input type="text" placeholder="Instalação" asp-for="Instalacao" />
+                </div>
+                <div class="Campo">
+                    <input type="number" placeholder="Lote" asp-for="Lote" />
+                </div>
+            }
+        </div>
+        <div class="Linha">
+            <div class="Campo">
+                <select asp-for="Operadora">
+                    <option></option>
+                    @foreach (string operadora in (List<string>)ViewBag.Operadoras)
+                    {
+                        if (operadora.Equals(Model?.Operadora))
+                        {
+                            <option value="@operadora" selected>@operadora</option>
+                        }
+                        else
+                        {
+                            <option value="@operadora">@operadora</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="Campo">
+                <input type="text" placeholder="Fabricante" asp-for="Fabricante" />
+            </div>
+        </div>
+        <div class="Linha">
+            <div class="Campo">
+                <input type="number" placeholder="Modelo" asp-for="Modelo" />
+            </div>
+            <div class="Campo">
+                <input type="number" placeholder="Versão" asp-for="Versao" />
+            </div>
+        </div>
+        <div class="Botoes">
+            <button class="btn Salvar" type="submit">Salvar</button>
+            <a class="btn Cancelar" asp-controller="Medidor" asp-action="Index">Cancelar</a>
+        </div>
+    </div>
+</form>

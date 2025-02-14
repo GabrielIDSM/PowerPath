@@ -9,6 +9,9 @@
     <div class="Titulo">
         <p>Medidores</p>
     </div>
+    <div class="Botoes">
+        <a class="btn Inserir" asp-controller="Medidor" asp-action="Inserir">Inserir medidor</a>
+    </div>
     <div class="Filtros">
         <div class="Filtro">
             <input id="instalacao" type="text" placeholder="Instalação" />
@@ -60,7 +63,7 @@
                                 </svg>
                                 <p>Inserido em @(medidor.Criacao)</p>
                             </div>
-                            <a class="btn Alterar" asp-controller="Medidor" asp-action="Index" asp-route-instalacao="@medidor.Instalacao" asp-route-lote="@medidor.Lote"><i class="fa-solid fa-pen"></i></a>
+                            <a class="btn Alterar" asp-controller="Medidor" asp-action="Alterar" asp-route-instalacao="@medidor.Instalacao" asp-route-lote="@medidor.Lote"><i class="fa-solid fa-pen"></i></a>
                             <button class="btn Excluir" onclick="OnClickExcluirMedidor('@(medidor.Instalacao)', @(medidor.Lote))"><i class="fa-solid fa-trash"></i></button>
                         }
                     </div>

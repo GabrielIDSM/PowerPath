@@ -1,12 +1,7 @@
 ﻿$(function () {
     ConfigurarSelect2()
     ConfigurarFiltros()
-
-    let mensagem = sessionStorage.getItem('Message')
-    if (mensagem) {
-        alert(mensagem)
-        sessionStorage.removeItem('Message')
-    }
+    ExibirMensagem()
 })
 
 function ConfigurarSelect2() {
@@ -14,6 +9,12 @@ function ConfigurarSelect2() {
         placeholder: 'Operadora',
         minimumResultsForSearch: Infinity,
         allowClear: true
+    })
+
+    $('#Operadora').select2({
+        placeholder: 'Operadora',
+        minimumResultsForSearch: Infinity,
+        allowClear: false
     })
 }
 
@@ -24,6 +25,37 @@ function ConfigurarFiltros() {
     $('#fabricante').on('input', FiltrarMedidores)
     $('#modelo').on('input', FiltrarMedidores)
     $('#versao').on('input', FiltrarMedidores)
+}
+
+function ExibirMensagem() {
+    let mensagemSucesso = sessionStorage.getItem('MensagemSucesso'),
+        mensagemErro = sessionStorage.getItem('MensagemErro')
+
+    if (mensagemSucesso) {
+        $(`
+            <div class="Notificacao Sucesso">
+		        <p>${mensagemSucesso}</p>
+		        <button class="btn" onclick="OnClickFecharNotificacao()"><i class="fa-solid fa-xmark"></i></button>
+	        </div>
+        `).appendTo($('body'))
+        sessionStorage.removeItem('MensagemSucesso')
+    } else if (mensagemErro) {
+        $(`
+            <div class="Notificacao Erro">
+		        <p>${mensagemErro}</p>
+		        <button class="btn" onclick="OnClickFecharNotificacao()"><i class="fa-solid fa-xmark"></i></button>
+	        </div>
+        `).appendTo($('body'))
+        sessionStorage.removeItem('MensagemErro')
+    }
+}
+
+function AdicionarMensagemSucesso(mensagem) {
+    sessionStorage.setItem('MensagemSucesso', mensagem)
+}
+
+function AdicionarMensagemErro(mensagem) {
+    sessionStorage.setItem('MensagemErro', mensagem)
 }
 
 function FiltrarMedidores() {
@@ -63,6 +95,10 @@ function FiltrarMedidores() {
     })
 }
 
+function OnClickFecharNotificacao() {
+    $('.Notificacao').remove()
+}
+
 function OnClickExcluirMedidor(instalacao, lote) {
     if (window.confirm(`Deseja excluir o medidor de Instalação: ${instalacao} e Lote: ${lote}?`)) {
         $.ajax({
@@ -70,11 +106,11 @@ function OnClickExcluirMedidor(instalacao, lote) {
             type: 'DELETE',
             data: { instalacao: instalacao, lote: lote },
             success: function (response) {
-                sessionStorage.setItem('Message', response.mensagem)
+                AdicionarMensagemSucesso(response.mensagem)
                 location.reload()
             },
             error: function (xhr) {
-                alert('Erro: ' + xhr.responseJSON.mensagem)
+                AdicionarMensagemErro(xhr.responseJSON.mensagem)
             }
         });
     }

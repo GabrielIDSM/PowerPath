@@ -15,7 +15,7 @@
     --black: 0, 0, 0;
     --van-dyke: 63, 41, 43;
     --cinereous: 129, 108, 97;
-    --cal-poly-green: 21, 71, 52;
+    --forest-green: 22, 146, 32;
     --wku-red: 198, 12, 48;
 }
 
@@ -197,7 +197,7 @@ main {
         border: solid 1px rgba(var(--cor), 1);
         border-left: solid 8px rgba(var(--cor), 1);
         background-color: rgba(var(--white), 1);
-        --cor: var(--cal-poly-green);
+        --cor: var(--van-dyke);
     }
 
         .Lista .Item.Excluido {
@@ -294,6 +294,146 @@ main {
                     color: rgba(var(--cor), 1);
                 }
 
+.Botoes {
+    margin-bottom: 20px;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    gap: 10px;
+}
+
+    .Botoes > a,
+    .Botoes > button {
+        height: 40px;
+        border-radius: 20px;
+        padding: 0 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Botoes .Inserir,
+    .Botoes .Salvar {
+        background-color: rgba(var(--van-dyke), 1) !important;
+        color: rgba(var(--off-white), 1) !important;
+        font-size: 12pt;
+    }
+
+    .Botoes .Cancelar {
+        background-color: rgba(var(--off-white), 1) !important;
+        color: rgba(var(--van-dyke), 1) !important;
+        font-size: 12pt;
+    }
+
+    .Botoes i {
+        font-size: 12pt;
+    }
+
+.Formulario {
+    margin-bottom: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+    .Formulario .Linha {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .Formulario .Linha .Campo {
+        flex: 1 1 calc(50% - 10px);
+        height: 50px;
+    }
+
+        .Formulario .Linha .Campo > input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            outline: none;
+            background-color: rgba(var(--off-white), 1);
+            border-bottom: solid 1px rgba(var(--van-dyke), 0.5);
+            color: rgba(var(--van-dyke), 1);
+        }
+
+            .Formulario .Linha .Campo > input::placeholder {
+                font-weight: 600;
+                color: rgba(var(--van-dyke), 0.8);
+            }
+
+            .Formulario .Linha .Campo > input:focus-visible {
+                border-bottom: solid 1px rgba(var(--van-dyke), 1);
+            }
+
+                .Formulario .Linha .Campo > input:focus-visible::placeholder {
+                    color: rgba(var(--van-dyke), 1);
+                }
+
+            .Formulario .Linha .Campo > input:read-only {
+                background-color: rgba(var(--van-dyke), 0.1);
+                border-bottom: solid 1px rgba(var(--van-dyke), 0.1);
+            }
+
+    .Formulario .Botoes {
+        padding-top: 20px;
+        margin: 0;
+    }
+
+        .Formulario .Botoes > a,
+        .Formulario .Botoes > button {
+            flex: 1;
+        }
+
+.Notificacao.Sucesso {
+    --cor-fundo: var(--forest-green);
+    --cor-texto: var(--white);
+}
+
+.Notificacao.Erro {
+    --cor-fundo: var(--wku-red);
+    --cor-texto: var(--white);
+}
+
+.Notificacao {
+    padding: 8px;
+    width: 300px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    border-radius: 4px;
+    background-color: rgba(var(--cor-fundo), 1);
+    align-items: center;
+}
+
+    .Notificacao p {
+        margin: 0;
+        flex: 1;
+        color: rgba(var(--cor-texto), 1);
+        font-weight: 800;
+        font-size: 14px;
+    }
+
+    .Notificacao button {
+        width: 30px;
+        min-height: 30px;
+        height: 100%;
+        position: relative;
+    }
+
+        .Notificacao button i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: rgba(var(--cor-texto), 1);
+        }
+
 /* Telas menores que 1080px */
 @media (max-width: 1080px) {
     .Login .Imagem {
@@ -330,6 +470,10 @@ main {
 
     .Login .Entrar {
         width: 100%;
+    }
+
+    .Formulario .Linha .Campo {
+        flex: 1 1 calc(100% - 10px);
     }
 
     .Filtros > .Filtro {

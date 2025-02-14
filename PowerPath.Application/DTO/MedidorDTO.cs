@@ -19,5 +19,7 @@
         public string? Alteracao { get; set; }
 
         public bool? Excluido { get; set; }
+
+        public bool? IsAlteracao { get; set; }
     }
 }

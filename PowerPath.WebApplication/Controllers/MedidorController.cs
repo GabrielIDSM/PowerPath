@@ -44,5 +44,55 @@ namespace PowerPath.WebApplication.Controllers
                 return BadRequest(new { mensagem = rExcluirMedidor.Mensagem });
             }
         }
+
+        [HttpGet]
+        public IActionResult Inserir()
+        {
+            MedidorDTO medidor = new()
+            {
+                IsAlteracao = false
+            };
+
+            Resposta<List<string>> rOperadoras = _medidorAppService.ListarOperadoras();
+
+            if (rOperadoras.IsSucesso)
+            {
+                ViewBag.Operadoras = rOperadoras.Resultado;
+            }
+            else
+            {
+                ViewBag.Operadoras = new List<string>();
+            }
+
+            return View(medidor);
+        }
+
+        [HttpGet]
+        public IActionResult Alterar(string? instalacao, int? lote)
+        {
+            Resposta<List<string>> rOperadoras = _medidorAppService.ListarOperadoras();
+
+            if (rOperadoras.IsSucesso)
+            {
+                ViewBag.Operadoras = rOperadoras.Resultado;
+            }
+            else
+            {
+                ViewBag.Operadoras = new List<string>();
+            }
+
+            Resposta<MedidorDTO> rConsultarMedidor = _medidorAppService.Consultar(instalacao, lote);
+
+            if (rConsultarMedidor.IsSucesso)
+            {
+                MedidorDTO medidor = rConsultarMedidor.Resultado!;
+                medidor.IsAlteracao = true;
+                return View(medidor);
+            } else
+            {
+                ViewBag.MensagemErro = rConsultarMedidor.Mensagem;
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
