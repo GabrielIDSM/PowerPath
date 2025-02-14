@@ -19,10 +19,15 @@
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     padding-left: 0px;
+    padding-right: 25px;
     padding-top: 11px;
     font-weight: 600;
     font-family: "Roboto";
     color: rgba(var(--van-dyke), 0.8) !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    padding: 0 4px;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
