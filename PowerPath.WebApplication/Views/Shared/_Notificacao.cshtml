@@ -1,6 +1,6 @@
 ﻿@{
-	string? mensagemSucesso = ViewBag.MensagemSucesso;
-	string? mensagemErro = ViewBag.MensagemErro;
+	string? mensagemSucesso = (string?)TempData["MensagemSucesso"];
+	string? mensagemErro = (string?)TempData["MensagemErro"];
 }
 
 @if (!string.IsNullOrWhiteSpace(mensagemSucesso)) {

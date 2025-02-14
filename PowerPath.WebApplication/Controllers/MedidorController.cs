@@ -16,7 +16,8 @@ namespace PowerPath.WebApplication.Controllers
             if (rOperadoras.IsSucesso)
             {
                 ViewBag.Operadoras = rOperadoras.Resultado;
-            } else
+            }
+            else
             {
                 ViewBag.Operadoras = new List<string>();
             }
@@ -24,7 +25,8 @@ namespace PowerPath.WebApplication.Controllers
             if (rMedidores.IsSucesso)
             {
                 return View(rMedidores.Resultado);
-            } else
+            }
+            else
             {
                 return View(new List<MedidorDTO>());
             }
@@ -37,7 +39,7 @@ namespace PowerPath.WebApplication.Controllers
 
             if (rExcluirMedidor.IsSucesso)
             {
-                return Ok(new {mensagem = "O medidor foi excluído com sucesso!" });
+                return Ok(new { mensagem = "O medidor foi excluído com sucesso!" });
             }
             else
             {
@@ -88,10 +90,59 @@ namespace PowerPath.WebApplication.Controllers
                 MedidorDTO medidor = rConsultarMedidor.Resultado!;
                 medidor.IsAlteracao = true;
                 return View(medidor);
-            } else
+            }
+            else
             {
-                ViewBag.MensagemErro = rConsultarMedidor.Mensagem;
+                TempData["MensagemErro"] = rConsultarMedidor.Mensagem;
                 return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Salvar(MedidorDTO medidor)
+        {
+            Resposta<List<string>> rOperadoras = _medidorAppService.ListarOperadoras();
+
+            if (rOperadoras.IsSucesso)
+            {
+                ViewBag.Operadoras = rOperadoras.Resultado;
+            }
+            else
+            {
+                ViewBag.Operadoras = new List<string>();
+            }
+
+            if (medidor.IsAlteracao.HasValue && medidor.IsAlteracao.Value)
+            {
+                Resposta<MedidorDTO> rAlterarMedidor = _medidorAppService.Alterar(medidor.Instalacao, medidor.Lote, medidor.Operadora,
+                    medidor.Fabricante, medidor.Modelo, medidor.Versao);
+
+                if (rAlterarMedidor.IsSucesso)
+                {
+                    TempData["MensagemSucesso"] = "Medidor alterado com sucesso!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["MensagemErro"] = rAlterarMedidor.Mensagem;
+                    return View("Alterar", medidor);
+                }
+            }
+            else
+            {
+                Resposta<MedidorDTO> rInserirMedidor = _medidorAppService.Inserir(medidor.Instalacao, medidor.Lote, medidor.Operadora,
+                    medidor.Fabricante, medidor.Modelo, medidor.Versao);
+
+                if (rInserirMedidor.IsSucesso)
+                {
+                    TempData["MensagemSucesso"] = "Medidor inserido com sucesso!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["MensagemErro"] = rInserirMedidor.Mensagem;
+                    return View("Inserir", medidor);
+                }
             }
         }
     }
