@@ -69,12 +69,12 @@ namespace PowerPath.Application.Services
             }
         }
 
-        public Resposta<List<MedidorDTO>> Consultar()
+        public Resposta<List<MedidorDTO>> Consultar(bool incluirExcluidos = false)
         {
             try
             {
                 _logAppService.Criar("Consulta Completa", $"Consulta completa de registros de medidores");
-                return Resposta<List<MedidorDTO>>.Sucesso(_mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar()));
+                return Resposta<List<MedidorDTO>>.Sucesso(_mapper.Map<List<MedidorDTO>>(_medidorRepository.Listar(incluirExcluidos)));
             }
             catch (Exception e)
             {

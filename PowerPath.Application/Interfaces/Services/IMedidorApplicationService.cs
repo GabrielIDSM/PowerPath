@@ -14,7 +14,7 @@ namespace PowerPath.Application.Interfaces.Services
 
         Resposta<MedidorDTO> Consultar(string? instalacao, int? lote);
 
-        Resposta<List<MedidorDTO>> Consultar();
+        Resposta<List<MedidorDTO>> Consultar(bool incluirExcluidos = false);
 
         Resposta<List<string>> ListarOperadoras();
     }

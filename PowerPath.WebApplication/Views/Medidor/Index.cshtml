@@ -14,10 +14,11 @@
             <input id="instalacao" type="text" placeholder="Instalação" />
         </div>
         <div class="Filtro">
-            <input id="lote" type="number" placeholder="Lote" />
+            <input id="lote" type="number" placeholder="Lote" min="0" max="10" />
         </div>
         <div class="Filtro">
-            <select id="operadora" >
+            <select id="operadora">
+                <option></option>
                 @foreach (string operadora in (List<string>)ViewBag.Operadoras)
                 {
                     <option value="@operadora">@operadora</option>
@@ -34,12 +35,35 @@
             <input id="versao" type="number" placeholder="Versão" />
         </div>
     </div>
-    <div class="Medidores">
+    <div id="Medidores" class="Lista">
         @foreach (MedidorDTO medidor in Model)
         {
-            <section class="Medidor" data-instalacao="@medidor.Instalacao" data-lote="@medidor.Lote" data-operadora="@medidor.Operadora"
+            bool isExcluido = medidor.Excluido.HasValue && medidor.Excluido.Value;
+            <section class="Item @(isExcluido ? "Excluido" : "")" data-instalacao="@medidor.Instalacao" data-lote="@medidor.Lote" data-operadora="@medidor.Operadora"
                      data-fabricante="@medidor.Fabricante" data-modelo="@medidor.Modelo" data-versao="@medidor.Versao">
                 <div class="Container">
+                    <div class="Cabecalho">
+                        @if (isExcluido)
+                        {
+                            <div class="Status">
+                                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 0.5C3.8525 0.5 0.5 3.8525 0.5 8C0.5 12.1475 3.8525 15.5 8 15.5C12.1475 15.5 15.5 12.1475 15.5 8C15.5 3.8525 12.1475 0.5 8 0.5ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM10.6925 4.25L8 6.9425L5.3075 4.25L4.25 5.3075L6.9425 8L4.25 10.6925L5.3075 11.75L8 9.0575L10.6925 11.75L11.75 10.6925L9.0575 8L11.75 5.3075L10.6925 4.25Z" />
+                                </svg>
+                                <p>Excluído em @(medidor.Alteracao)</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="Status">
+                                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 0.5C3.86 0.5 0.5 3.86 0.5 8C0.5 12.14 3.86 15.5 8 15.5C12.14 15.5 15.5 12.14 15.5 8C15.5 3.86 12.14 0.5 8 0.5ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM11.4425 4.685L6.5 9.6275L4.5575 7.6925L3.5 8.75L6.5 11.75L12.5 5.75L11.4425 4.685Z" />
+                                </svg>
+                                <p>Inserido em @(medidor.Criacao)</p>
+                            </div>
+                            <a class="btn Alterar" asp-controller="Medidor" asp-action="Index" asp-route-instalacao="@medidor.Instalacao" asp-route-lote="@medidor.Lote"><i class="fa-solid fa-pen"></i></a>
+                            <button class="btn Excluir" onclick="OnClickExcluirMedidor('@(medidor.Instalacao)', @(medidor.Lote))"><i class="fa-solid fa-trash"></i></button>
+                        }
+                    </div>
                     <div class="Linha">
                         <div class="Campo">
                             <p>Instalação</p>
@@ -47,8 +71,10 @@
                         </div>
                         <div class="Campo">
                             <p>Lote</p>
-                            <p>@medidor.Instalacao</p>
+                            <p>@medidor.Lote</p>
                         </div>
+                        <div class="Campo Placeholder"></div>
+                        <div class="Campo Placeholder"></div>
                     </div>
                     <div class="Linha">
                         <div class="Campo">

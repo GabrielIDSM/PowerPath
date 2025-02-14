@@ -41,6 +41,7 @@ namespace PowerPath.Domain.Services
             if (IsExcluido(medidor))
                 throw new ArgumentException("O medidor já foi excluído anteriormente.");
 
+            medidor.Alteracao = DateTime.Now;
             medidor.Excluido = 1;
         }
 
