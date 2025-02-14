@@ -27,7 +27,7 @@ namespace PowerPath.Infra.Files.Repositories
         public List<Log> ListarPorData(int ano, int mes, int dia)
         {
             DateTime dateTime = new(ano, mes, dia);
-            string caminhoArquivo = $"{_caminhoRaiz}_{dateTime:yyyyMMdd}.txt";
+            string caminhoArquivo = $"{_caminhoRaiz}{dateTime:yyyyMMdd}.txt";
 
             if (!File.Exists(caminhoArquivo))
                 throw new ArgumentException($"Não existem registros em {dateTime:dd/MM/yyyy}.");

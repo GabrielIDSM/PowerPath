@@ -1,6 +1,7 @@
 ﻿$(function () {
     ConfigurarSelect2()
     ConfigurarFiltros()
+    ConfigurarLog()
     ExibirMensagem()
 })
 
@@ -25,6 +26,10 @@ function ConfigurarFiltros() {
     $('#fabricante').on('input', FiltrarMedidores)
     $('#modelo').on('input', FiltrarMedidores)
     $('#versao').on('input', FiltrarMedidores)
+}
+
+function ConfigurarLog() {
+    $('#data').on('input', ExibirLog)
 }
 
 function ExibirMensagem() {
@@ -93,6 +98,31 @@ function FiltrarMedidores() {
         if (!exibir)
             $medidor.css('display', 'none')
     })
+}
+
+function ExibirLog() {
+    let [ano, mes, dia] = this.value.split("-");
+    $.ajax({
+        url: 'Log/Listar/',
+        type: 'GET',
+        data: { ano: ano, mes: mes, dia: dia },
+        success: function (response) {
+            let $logs = $('#historico')
+            $logs.find('tr:not(:first)').remove()
+            response.forEach(function (log) {
+                $(`
+                    <tr>
+                        <td>${log.acao}</td>
+                        <td>${log.dataHora}</td>
+                        <td>${log.mensagem}</td>
+                    </tr>
+                `).appendTo($logs)
+            })
+        },
+        error: function (xhr) {
+            AdicionarMensagemErro(xhr.responseJSON.mensagem)
+        }
+    });
 }
 
 function OnClickFecharNotificacao() {

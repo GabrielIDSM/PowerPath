@@ -1,10 +1,32 @@
-﻿@{
-    ViewData["Title"] = "Log";
+﻿@using PowerPath.Application.DTO
+@model List<PowerPath.Application.DTO.LogDTO>
+@{
+    ViewData["Title"] = "Histórico";
 }
 
 <partial name="_Navbar" />
 <main>
     <div class="Titulo">
-        <p>Log</p>
+        <p>Histórico de ações</p>
     </div>
+    <div class="Filtros">
+        <div class="Filtro">
+            <input id="data" type="date" placeholder="Data" value="@(DateTime.Now.ToString("yyyy-MM-dd"))" />
+        </div>
+    </div>
+    <table id="historico" class="Tabela">
+        <tr class="Cabecalho">
+            <th>Ação</th>
+            <th>Horário</th>
+            <th>Mensagem</th>
+        </tr>
+        @foreach (LogDTO log in Model)
+        {
+            <tr>
+                <td>@log.Acao</td>
+                <td>@log.DataHora</td>
+                <td>@log.Mensagem</td>
+            </tr>
+        }
+    </table>
 </main>

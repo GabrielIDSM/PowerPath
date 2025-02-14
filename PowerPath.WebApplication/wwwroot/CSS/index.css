@@ -439,6 +439,61 @@ main {
             color: rgba(var(--cor-texto), 1);
         }
 
+.Tabela {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    .Tabela td {
+        height: 35px;
+    }
+
+        .Tabela td:nth-child(1) {
+            padding-left: 10px;
+        }
+
+        .Tabela td:nth-child(3) {
+            padding-right: 10px;
+        }
+
+    .Tabela tr:nth-child(odd) {
+        background-color: rgba(var(--cinereous), 0.1);
+    }
+
+    .Tabela tr.Cabecalho {
+        width: 100%;
+        height: 35px;
+        background-color: rgba(var(--cinereous), 0.2);
+    }
+
+        .Tabela .Cabecalho th {
+            font-weight: 800;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(var(--van-dyke), 1);
+            border-top: solid 1px rgba(var(--van-dyke), 0.5);
+            border-bottom: solid 1px rgba(var(--van-dyke), 0.5);
+        }
+
+            .Tabela .Cabecalho th:nth-child(1) {
+                padding-left: 10px;
+                width: 25%;
+                border-radius: 12px 0 0 12px;
+                border-left: solid 1px rgba(var(--van-dyke), 0.5);
+            }
+
+            .Tabela .Cabecalho th:nth-child(2) {
+                width: 25%;
+            }
+
+            .Tabela .Cabecalho th:nth-child(3) {
+                padding-right: 10px;
+                width: 50%;
+                border-radius: 0 12px 12px 0;
+                border-right: solid 1px rgba(var(--van-dyke), 0.5);
+            }
+
 /* Telas menores que 1080px */
 @media (max-width: 1080px) {
     .Login .Imagem {

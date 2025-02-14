@@ -10,11 +10,11 @@ namespace PowerPath.Application.Profiles
         public LogProfile()
         {
             CreateMap<Log, LogDTO>()
-                .ForMember(d => d.DataHora, opt => opt.MapFrom(o => o.DataHora.ToString("dd/MM/yyyy hh:mm:ss")));
+                .ForMember(d => d.DataHora, opt => opt.MapFrom(o => o.DataHora.ToString("dd/MM/yyyy HH:mm:ss")));
 
             CreateMap<LogDTO, Log>()
                 .ForMember(d => d.DataHora, opt => opt.MapFrom(o => string.IsNullOrEmpty(o.DataHora) ?
-                    DateTime.ParseExact(o.DataHora!, "dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture) :
+                    DateTime.ParseExact(o.DataHora!, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture) :
                     (DateTime?)null));
         }
     }
