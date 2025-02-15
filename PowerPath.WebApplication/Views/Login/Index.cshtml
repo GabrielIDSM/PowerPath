@@ -1,0 +1,33 @@
+﻿@model PowerPath.Application.DTO.UsuarioDTO
+@{
+    ViewData["Title"] = "Power Path";
+}
+
+<section class="Login">
+    <div class="Imagem">
+        <img src="~/Asset/Login.jpg" />
+        <div class="Sombra"></div>
+    </div>
+    <div class="Entrar">
+        <div class="Container">
+            <p>Power Path</p>
+            <form asp-action="Autenticar" asp-controller="Login" method="POST">
+                <div class="Formulario">
+                    <div class="Linha">
+                        <div class="Campo">
+                            <label asp-for="Nome">Usuário</label>
+                            <input type="text" asp-for="Nome" />
+                        </div>
+                        <div class="Campo">
+                            <label asp-for="Senha">Senha</label>
+                            <input type="password" asp-for="Senha" />
+                        </div>
+                    </div>
+                </div>
+                <div class="Botoes">
+                    <button class="btn Autenticar" type="submit">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

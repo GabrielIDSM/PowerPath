@@ -1,0 +1,562 @@
+/* Utilitário */
+
+.DisableSelect {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Cores */
+
+:root {
+    --white: 255, 255, 255;
+    --off-white: 251, 251, 251;
+    --black: 0, 0, 0;
+    --van-dyke: 63, 41, 43;
+    --cinereous: 129, 108, 97;
+    --forest-green: 22, 146, 32;
+    --wku-red: 198, 12, 48;
+}
+
+/* Desktop */
+
+html,
+body {
+    margin: 0px;
+    font-family: "Roboto";
+    width: 100%;
+    overflow-x: clip;
+    background-color: rgba(var(--off-white), 1);
+}
+
+html {
+    overflow-x: hidden;
+}
+
+    html::-webkit-scrollbar-track {
+        background-color: rgba(var(--off-white), 1);
+    }
+
+    html::-webkit-scrollbar {
+        width: 15px;
+        height: 15px;
+        background-color: rgba(var(--off-white), 1);
+    }
+
+    html::-webkit-scrollbar-thumb {
+        background-color: rgba(var(--van-dyke), 1);
+        border: 2px solid rgba(var(--off-white), 1);
+    }
+
+.Login {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+    .Login .Imagem {
+        width: 70%;
+        overflow: hidden;
+    }
+
+        .Login .Imagem img {
+            width: auto;
+            height: 100%;
+        }
+
+        .Login .Imagem .Sombra {
+            width: 70%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: inset -5px 0px 30px 5px rgba(var(--van-dyke), 0.6);
+        }
+
+    .Login .Entrar {
+        width: 30%;
+        position: relative;
+        background-color: rgba(var(--cinereous), 1);
+    }
+
+        .Login .Entrar .Container {
+            padding: 10px;
+            width: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            gap: 19px;
+            border-radius: 8px;
+            background-color: rgba(var(--off-white), 1);
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+        }
+
+            .Login .Entrar .Container a {
+                background-color: rgba(var(--van-dyke), 1);
+                color: rgba(var(--off-white), 1);
+            }
+
+            .Login .Entrar .Container > p {
+                margin: 0;
+                font-weight: 800;
+                font-size: 22pt;
+                line-height: 32px;
+                text-align: center;
+                color: rgba(var(--van-dyke), 1);
+            }
+
+.Navbar {
+    background-color: rgba(var(--van-dyke), 1);
+    color: rgba(var(--off-white), 1);
+}
+
+    .Navbar .Logo {
+        font-weight: 800;
+        font-size: 18pt;
+        color: rgba(var(--off-white), 1);
+    }
+
+        .Navbar a i {
+            margin-right: 5px;
+        }
+
+main {
+    padding: 10px;
+    margin: 60px auto;
+    max-width: 880px;
+    width: 100%;
+}
+
+    main .Titulo {
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 18pt;
+        text-transform: uppercase;
+        color: rgba(var(--van-dyke), 1);
+    }
+
+.Filtros {
+    margin-bottom: 30px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-radius: 12px;
+    border: solid 1px rgba(var(--van-dyke), 0.5);
+}
+
+    .Filtros > .Filtro {
+        flex: 1 1 calc(33.333% - 10px);
+        height: 50px;
+    }
+
+        .Filtros > .Filtro > input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            outline: none;
+            background-color: rgba(var(--off-white), 1);
+            border-bottom: solid 1px rgba(var(--van-dyke), 0.5);
+            color: rgba(var(--van-dyke), 1);
+        }
+
+            .Filtros > .Filtro > input::placeholder {
+                font-weight: 600;
+                color: rgba(var(--van-dyke), 0.8);
+            }
+
+            .Filtros > .Filtro > input:focus-visible {
+                border-bottom: solid 1px rgba(var(--van-dyke), 1);
+            }
+
+                .Filtros > .Filtro > input:focus-visible::placeholder {
+                    color: rgba(var(--van-dyke), 1);
+                }
+
+.Lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+    .Lista .Item {
+        padding: 15px;
+        flex: 1;
+        border-radius: 8px;
+        border: solid 1px rgba(var(--cor), 1);
+        border-left: solid 8px rgba(var(--cor), 1);
+        background-color: rgba(var(--white), 1);
+        --cor: var(--van-dyke);
+    }
+
+        .Lista .Item.Excluido {
+            --cor: var(--wku-red);
+        }
+
+        .Lista .Item .Container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+            .Lista .Item .Container .Cabecalho {
+                display: flex;
+                gap: 5px;
+                width: 100%;
+                height: 30px;
+            }
+
+                .Lista .Item .Container .Cabecalho > a,
+                .Lista .Item .Container .Cabecalho > button {
+                    width: 30px;
+                    height: 30px;
+                    position: relative;
+                    border-radius: 4px;
+                }
+
+                    .Lista .Item .Container .Cabecalho > a > i,
+                    .Lista .Item .Container .Cabecalho > button > i {
+                        font-size: 14px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: rgba(var(--white), 1);
+                    }
+
+                .Lista .Item .Container .Cabecalho .Alterar {
+                    background-color: rgba(var(--van-dyke), 1);
+                }
+
+                .Lista .Item .Container .Cabecalho .Excluir {
+                    background-color: rgba(var(--wku-red), 1);
+                }
+
+            .Lista .Item .Container .Linha {
+                display: flex;
+                gap: 10px;
+            }
+
+                .Lista .Item .Container .Linha .Campo {
+                    flex: 1;
+                    height: 38px;
+                }
+
+                    .Lista .Item .Container .Linha .Campo > p:first-child {
+                        margin: 0;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: rgba(var(--van-dyke), 0.85);
+                    }
+
+                    .Lista .Item .Container .Linha .Campo > p:last-child {
+                        margin: 0;
+                        font-weight: 700;
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: rgba(var(--van-dyke), 0.7);
+                    }
+
+            .Lista .Item .Container .Status {
+                flex: 1;
+                border: solid 1px rgba(var(--cor), 1);
+                border-radius: 4px;
+                display: flex;
+                gap: 5px;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(var(--cor), 0.1);
+            }
+
+                .Lista .Item .Container .Status > svg {
+                    display: block;
+                    width: 14px;
+                    height: 14px;
+                    fill: rgba(var(--cor), 1);
+                }
+
+                .Lista .Item .Container .Status > p {
+                    margin: 0;
+                    font-weight: 800;
+                    font-size: 14px;
+                    color: rgba(var(--cor), 1);
+                }
+
+.Botoes {
+    margin-bottom: 20px;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    gap: 10px;
+}
+
+    .Botoes > a,
+    .Botoes > button {
+        height: 40px;
+        border-radius: 20px;
+        padding: 0 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Botoes .Inserir,
+    .Botoes .Salvar,
+    .Botoes .Autenticar {
+        background-color: rgba(var(--van-dyke), 1) !important;
+        color: rgba(var(--off-white), 1) !important;
+        font-size: 12pt;
+    }
+
+    .Botoes .Autenticar {
+        flex: 1;
+    }
+
+    .Botoes .Cancelar {
+        background-color: rgba(var(--off-white), 1) !important;
+        color: rgba(var(--van-dyke), 1) !important;
+        font-size: 12pt;
+    }
+
+    .Botoes i {
+        font-size: 12pt;
+    }
+
+.Formulario {
+    margin-bottom: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+    .Formulario .Linha {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .Formulario .Linha .Campo {
+        position: relative;
+        flex: 1 1 calc(50% - 10px);
+    }
+
+        .Formulario .Linha .Campo > label {
+            margin: 0;
+            padding: 0 2px;
+            z-index: 2;
+            position: absolute;
+            top: -9px;
+            left: 9px;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 18px;
+            color: rgba(var(--van-dyke), 0.85);
+            background-color: rgba(var(--off-white), 1);
+        }
+
+        .Formulario .Linha .Campo > input {
+            width: 100%;
+            height: 50px;
+            padding-left: 5px;
+            border: none;
+            outline: none;
+            background-color: rgba(var(--off-white), 1);
+            border-radius: 4px;
+            border: solid 1px rgba(var(--van-dyke), 0.5);
+            color: rgba(var(--van-dyke), 1);
+        }
+
+            .Formulario .Linha .Campo > input:read-only {
+                font-weight: 700;
+                cursor: not-allowed;
+                color: rgba(var(--van-dyke), 0.6);
+            }
+
+    .Formulario .Botoes {
+        padding-top: 20px;
+        margin: 0;
+    }
+
+        .Formulario .Botoes > a,
+        .Formulario .Botoes > button {
+            flex: 1;
+        }
+
+.Login .Formulario {
+    margin: 0;
+}
+
+    .Login .Formulario .Linha .Campo {
+        flex: 1 1 calc(100% - 10px);
+    }
+
+.Login .Botoes {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.Notificacao.Sucesso {
+    --cor-fundo: var(--forest-green);
+    --cor-texto: var(--white);
+}
+
+.Notificacao.Erro {
+    --cor-fundo: var(--wku-red);
+    --cor-texto: var(--white);
+}
+
+.Notificacao {
+    padding: 8px;
+    width: 300px;
+    z-index: 100;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    border-radius: 4px;
+    background-color: rgba(var(--cor-fundo), 1);
+    align-items: center;
+}
+
+    .Notificacao p {
+        margin: 0;
+        flex: 1;
+        color: rgba(var(--cor-texto), 1);
+        font-weight: 800;
+        font-size: 14px;
+    }
+
+    .Notificacao button {
+        width: 30px;
+        min-height: 30px;
+        height: 100%;
+        position: relative;
+    }
+
+        .Notificacao button i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: rgba(var(--cor-texto), 1);
+        }
+
+.Tabela {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    .Tabela td {
+        height: 35px;
+    }
+
+        .Tabela td:nth-child(1) {
+            padding-left: 10px;
+        }
+
+        .Tabela td:nth-child(3) {
+            padding-right: 10px;
+        }
+
+    .Tabela tr:nth-child(odd) {
+        background-color: rgba(var(--cinereous), 0.1);
+    }
+
+    .Tabela tr.Cabecalho {
+        width: 100%;
+        height: 35px;
+        background-color: rgba(var(--cinereous), 0.2);
+    }
+
+        .Tabela .Cabecalho th {
+            font-weight: 800;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(var(--van-dyke), 1);
+            border-top: solid 1px rgba(var(--van-dyke), 0.5);
+            border-bottom: solid 1px rgba(var(--van-dyke), 0.5);
+        }
+
+            .Tabela .Cabecalho th:nth-child(1) {
+                padding-left: 10px;
+                width: 25%;
+                border-radius: 12px 0 0 12px;
+                border-left: solid 1px rgba(var(--van-dyke), 0.5);
+            }
+
+            .Tabela .Cabecalho th:nth-child(2) {
+                width: 25%;
+            }
+
+            .Tabela .Cabecalho th:nth-child(3) {
+                padding-right: 10px;
+                width: 50%;
+                border-radius: 0 12px 12px 0;
+                border-right: solid 1px rgba(var(--van-dyke), 0.5);
+            }
+
+/* Telas menores que 1080px */
+@media (max-width: 1080px) {
+    .Login .Imagem {
+        width: 50%;
+    }
+
+        .Login .Imagem .Sombra {
+            width: 50%;
+        }
+
+    .Login .Entrar {
+        width: 50%;
+    }
+}
+
+/* Telas menores que 720px */
+
+@media (max-width: 720px) {
+    .Lista .Item .Container .Linha:last-child {
+        flex-wrap: wrap;
+    }
+
+        .Lista .Item .Container .Linha:last-child .Campo {
+            flex: 1 1 calc(50% - 10px);
+        }
+
+    .Lista .Campo.Placeholder {
+        display: none;
+    }
+
+    .Login .Imagem {
+        display: none;
+    }
+
+    .Login .Entrar {
+        width: 100%;
+    }
+
+    .Formulario .Linha .Campo {
+        flex: 1 1 calc(100% - 10px);
+    }
+
+    .Filtros > .Filtro {
+        flex: 1 1 calc(50% - 10px);
+    }
+}
+
+/* Telas menores que 480px */
+
+@media (max-width: 480px) {
+    .Filtros > .Filtro {
+        flex: 1 1 calc(100% - 10px);
+    }
+}

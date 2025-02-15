@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.Domain", "PowerPath.Domain\PowerPath.Domain.csproj", "{7C091694-D465-4D85-82C0-5FD886874455}"
 EndProject
@@ -10,6 +10,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.Infra.Files", "PowerPath.Infra.Files\PowerPath.Infra.Files.csproj", "{AF7B07B3-A44E-404A-B525-0FEAFA42C123}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.Application", "PowerPath.Application\PowerPath.Application.csproj", "{6C4CDA9D-74FC-41DD-83AA-5CD823A85436}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.WebApplication", "PowerPath.WebApplication\PowerPath.WebApplication.csproj", "{03EC32E8-B6CD-4595-A017-B9C15458AADC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.ConsoleApplication", "PowerPath.ConsoleApplication\PowerPath.ConsoleApplication.csproj", "{C92904C7-40D6-4F62-AA09-5455608DF38C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.Infra.Security", "PowerPath.Infra.Security\PowerPath.Infra.Security.csproj", "{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.CrossCut", "PowerPath.CrossCut\PowerPath.CrossCut.csproj", "{468BCE9C-25C9-48EA-A8A3-9EEBAEC0C484}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.API", "PowerPath.API\PowerPath.API.csproj", "{9D7036BA-CC61-4876-8558-93EE13D1C3B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +43,26 @@ Global
 		{6C4CDA9D-74FC-41DD-83AA-5CD823A85436}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C4CDA9D-74FC-41DD-83AA-5CD823A85436}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C4CDA9D-74FC-41DD-83AA-5CD823A85436}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03EC32E8-B6CD-4595-A017-B9C15458AADC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03EC32E8-B6CD-4595-A017-B9C15458AADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03EC32E8-B6CD-4595-A017-B9C15458AADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03EC32E8-B6CD-4595-A017-B9C15458AADC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C92904C7-40D6-4F62-AA09-5455608DF38C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C92904C7-40D6-4F62-AA09-5455608DF38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C92904C7-40D6-4F62-AA09-5455608DF38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C92904C7-40D6-4F62-AA09-5455608DF38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{468BCE9C-25C9-48EA-A8A3-9EEBAEC0C484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{468BCE9C-25C9-48EA-A8A3-9EEBAEC0C484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{468BCE9C-25C9-48EA-A8A3-9EEBAEC0C484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{468BCE9C-25C9-48EA-A8A3-9EEBAEC0C484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D7036BA-CC61-4876-8558-93EE13D1C3B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D7036BA-CC61-4876-8558-93EE13D1C3B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D7036BA-CC61-4876-8558-93EE13D1C3B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D7036BA-CC61-4876-8558-93EE13D1C3B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,52 @@
+﻿.select2-container {
+    width: 100% !important;
+    height: 50px;
+}
+
+.select2-selection {
+    height: 100% !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: solid 1px rgba(var(--van-dyke), 0.5) !important;
+    background-color: rgba(var(--off-white), 0.5) !important;
+}
+
+.Formulario .select2-selection {
+    border-radius: 4px !important;
+    border: solid 1px rgba(var(--van-dyke), 0.5) !important;
+}
+
+.select2-selection__placeholder {
+    font-weight: 600;
+    font-family: "Roboto";
+    color: rgba(var(--van-dyke), 0.8) !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding-left: 0px;
+    padding-right: 25px;
+    padding-top: 11px;
+    font-weight: 600;
+    font-family: "Roboto";
+    color: rgba(var(--van-dyke), 0.8) !important;
+}
+
+.Formulario .select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding-left: 5px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    padding: 0 4px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 11px !important;
+}
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: rgba(var(--van-dyke), 0.8) transparent transparent transparent;
+    }
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: rgba(var(--van-dyke), 1);
+}

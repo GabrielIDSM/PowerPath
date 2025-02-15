@@ -1,0 +1,18 @@
+﻿@{
+	string? mensagemSucesso = (string?)TempData["MensagemSucesso"];
+	string? mensagemErro = (string?)TempData["MensagemErro"];
+}
+
+@if (!string.IsNullOrWhiteSpace(mensagemSucesso)) {
+	<div class="Notificacao Sucesso">
+		<p>@mensagemSucesso</p>
+		<button class="btn" onclick="OnClickFecharNotificacao()"><i class="fa-solid fa-xmark"></i></button>
+	</div>
+}
+else if (!string.IsNullOrWhiteSpace(mensagemErro))
+{
+	<div class="Notificacao Erro">
+		<p>@mensagemErro</p>
+		<button class="btn" onclick="OnClickFecharNotificacao()"><i class="fa-solid fa-xmark"></i></button>
+	</div>
+}
