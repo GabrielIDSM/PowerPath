@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PowerPath.Application.DTO;
 using PowerPath.Application.Interfaces.Services;
 
 namespace PowerPath.WebApplication.Controllers
 {
+    [Authorize]
     public class LogController(ILogApplicationService logAppService) : Controller
     {
         private readonly ILogApplicationService _logAppService = logAppService;

@@ -48,6 +48,7 @@ class Program
             {
                 services.AddDbContext<PowerPathContext>();
 
+                services.AddScoped<IJWTSecurity, JWTSecurity>();
                 services.AddScoped<ISenhaSecurity, SenhaSecurity>();
 
                 services.AddScoped<IMedidorSQLRepository, PowerPath.Infra.SQL.Repositories.MedidorRepository>();

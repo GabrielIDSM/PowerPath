@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PowerPath.Application.DTO.UsuarioDTO
+@{
     ViewData["Title"] = "Power Path";
 }
 
@@ -9,9 +10,22 @@
     </div>
     <div class="Entrar">
         <div class="Container">
-            <p>Olá,<br/>Bem-vindo(a) ao <b>Power Path</b>!</p>
-            <a class="btn" asp-controller="Medidor" asp-action="Index"><i class="fa-solid fa-tablet-screen-button"></i>Medidores</a>
-            <a class="btn" asp-controller="Log" asp-action="Index"><i class="fa-solid fa-book"></i>Histórico</a>
+            <p>Power Path</p>
+            <form asp-action="Home" asp-controller="Entrar" method="POST">
+                <div class="Formulario">
+                    <div class="Campo">
+                        <label asp-for="Nome">Usuário</label>
+                        <input type="text" asp-for="Nome" />
+                    </div>
+                    <div class="Campo">
+                        <label asp-for="Senha">Senha</label>
+                        <input type="password" asp-for="Senha" />
+                    </div>
+                </div>
+                <div class="Botoes">
+                    <button class="btn Entrar" type="submit">Entrar</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>

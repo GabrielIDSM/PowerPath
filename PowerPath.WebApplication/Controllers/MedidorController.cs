@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PowerPath.Application.DTO;
 using PowerPath.Application.Interfaces.Services;
 
 namespace PowerPath.WebApplication.Controllers
 {
+    [Authorize]
     public class MedidorController(IMedidorApplicationService medidorAppService) : Controller
     {
         private readonly IMedidorApplicationService _medidorAppService = medidorAppService;

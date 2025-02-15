@@ -1,3 +1,6 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using PowerPath.Application.Facades;
 using PowerPath.Application.Interfaces.Services;
 using PowerPath.Application.Profiles;
@@ -15,8 +18,25 @@ using PowerPath.Infra.SQL.Repositories;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ClockSkew = TimeSpan.Zero,
+            ValidIssuer = "PowerPath",
+            ValidAudience = "Default",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET_KEY")!))
+        };
+    });
+
 builder.Services.AddDbContext<PowerPathContext>();
 
+builder.Services.AddScoped<IJWTSecurity, JWTSecurity>();
 builder.Services.AddScoped<ISenhaSecurity, SenhaSecurity>();
 
 builder.Services.AddScoped<IMedidorSQLRepository, PowerPath.Infra.SQL.Repositories.MedidorRepository>();
@@ -43,13 +63,13 @@ WebApplication webApplication = builder.Build();
 
 if (!webApplication.Environment.IsDevelopment())
 {
-    webApplication.UseExceptionHandler("/Home/Error");
     webApplication.UseHsts();
 }
 
 webApplication.UseHttpsRedirection();
 webApplication.UseStaticFiles();
 webApplication.UseRouting();
+webApplication.UseAuthentication();
 webApplication.UseAuthorization();
 
 webApplication.MapControllerRoute(

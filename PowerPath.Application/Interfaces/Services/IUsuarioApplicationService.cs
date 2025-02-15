@@ -6,6 +6,6 @@ namespace PowerPath.Application.Interfaces.Services
     {
         Resposta<UsuarioDTO> Criar(string? nome, string? senha);
 
-        Resposta<UsuarioDTO> Autenticar(string? nome, string? senha);
+        Resposta<string> Autenticar(string? nome, string? senha);
     }
 }

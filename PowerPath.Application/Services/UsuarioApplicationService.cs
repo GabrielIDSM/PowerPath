@@ -9,18 +9,20 @@ using PowerPath.Domain.Interfaces.Services;
 namespace PowerPath.Application.Services
 {
     public class UsuarioApplicationService(ILogApplicationService logAppService,
+        IJWTSecurity jwtSecurity,
         ISenhaSecurity senhaSecurity,
         IUsuarioRepository usuarioRepository,
         IUsuarioService usuarioService,
         IMapper mapper) : IUsuarioApplicationService
     {
         private readonly ILogApplicationService _logAppService = logAppService;
+        private readonly IJWTSecurity _jwtSecurity = jwtSecurity;
         private readonly ISenhaSecurity _senhaSecurity = senhaSecurity;
         private readonly IUsuarioRepository _usuarioRepository = usuarioRepository;
         private readonly IUsuarioService _usuarioService = usuarioService;
         private readonly IMapper _mapper = mapper;
 
-        public Resposta<UsuarioDTO> Autenticar(string? nome, string? senha)
+        public Resposta<string> Autenticar(string? nome, string? senha)
         {
             try
             {
@@ -31,16 +33,16 @@ namespace PowerPath.Application.Services
                 if (usuario is not null && _senhaSecurity.SenhaIsSenhaCriptografada(senha!, usuario.Senha))
                 {
                     _logAppService.Criar("Autenticação", $"Sessão iniciada com Usuário: \"{nome}\".");
-                    return Resposta<UsuarioDTO>.Sucesso(_mapper.Map<UsuarioDTO>(usuario));
+                    return Resposta<string>.Sucesso(_jwtSecurity.GerarToken(nome!));
                 }
                 else
                 {
-                    return Resposta<UsuarioDTO>.Erro("Usuário e/ou senha incorretos.");
+                    return Resposta<string>.Erro("Usuário e/ou senha incorretos.");
                 }
             }
             catch (Exception e)
             {
-                return Resposta<UsuarioDTO>.Erro(e.Message);
+                return Resposta<string>.Erro(e.Message);
             }
         }
 
