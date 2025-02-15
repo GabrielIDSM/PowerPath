@@ -33,7 +33,7 @@ namespace PowerPath.WebApplication.Controllers
             else
             {
                 TempData["MensagemErro"] = rToken.Mensagem;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
         }
     }

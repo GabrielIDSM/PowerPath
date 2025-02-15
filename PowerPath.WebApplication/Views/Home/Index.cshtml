@@ -11,19 +11,21 @@
     <div class="Entrar">
         <div class="Container">
             <p>Power Path</p>
-            <form asp-action="Home" asp-controller="Entrar" method="POST">
+            <form asp-action="Entrar" asp-controller="Home" method="POST">
                 <div class="Formulario">
-                    <div class="Campo">
-                        <label asp-for="Nome">Usuário</label>
-                        <input type="text" asp-for="Nome" />
-                    </div>
-                    <div class="Campo">
-                        <label asp-for="Senha">Senha</label>
-                        <input type="password" asp-for="Senha" />
+                    <div class="Linha">
+                        <div class="Campo">
+                            <label asp-for="Nome">Usuário</label>
+                            <input type="text" asp-for="Nome" />
+                        </div>
+                        <div class="Campo">
+                            <label asp-for="Senha">Senha</label>
+                            <input type="password" asp-for="Senha" />
+                        </div>
                     </div>
                 </div>
                 <div class="Botoes">
-                    <button class="btn Entrar" type="submit">Entrar</button>
+                    <button class="btn Logar" type="submit">Entrar</button>
                 </div>
             </form>
         </div>
