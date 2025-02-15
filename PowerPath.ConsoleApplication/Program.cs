@@ -1,20 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PowerPath.Application.Facades;
 using PowerPath.Application.Interfaces.Services;
-using PowerPath.Application.Profiles;
-using PowerPath.Application.Services;
-using PowerPath.Domain.Interfaces.Facades.Repositories;
-using PowerPath.Domain.Interfaces.Repositories;
-using PowerPath.Domain.Interfaces.Repositories.Medidores;
-using PowerPath.Domain.Interfaces.Security;
-using PowerPath.Domain.Interfaces.Services;
-using PowerPath.Domain.Services;
-using PowerPath.Infra.Files.Repositories;
-using PowerPath.Infra.Security;
-using PowerPath.Infra.SQL.Contexts;
-using PowerPath.Infra.SQL.Repositories;
+using PowerPath.CrossCut;
 
 class Program
 {
@@ -46,28 +34,7 @@ class Program
             })
             .ConfigureServices((context, services) =>
             {
-                services.AddDbContext<PowerPathContext>();
-
-                services.AddScoped<IJWTSecurity, JWTSecurity>();
-                services.AddScoped<ISenhaSecurity, SenhaSecurity>();
-
-                services.AddScoped<IMedidorSQLRepository, PowerPath.Infra.SQL.Repositories.MedidorRepository>();
-                services.AddScoped<IMedidorFileRepository, PowerPath.Infra.Files.Repositories.MedidorRepository>();
-                services.AddScoped<ILogRepository, LogRepository>();
-                services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
-                services.AddScoped<ILogService, LogService>();
-                services.AddScoped<IMedidorService, MedidorService>();
-                services.AddScoped<IUsuarioService, UsuarioService>();
-
-                services.AddScoped<IConsoleApplicationService, ConsoleApplicationService>();
-                services.AddScoped<IMedidorApplicationService, MedidorApplicationService>();
-                services.AddScoped<ILogApplicationService, LogApplicationService>();
-                services.AddScoped<IUsuarioApplicationService, UsuarioApplicationService>();
-
-                services.AddScoped<IMedidorRepositoryFacade, MedidorRepositoryFacade>();
-
-                services.AddAutoMapper(typeof(MedidorProfile), typeof(LogProfile), typeof(UsuarioProfile));
+                services.AddServices(context.Configuration);
             });
     }
 }
