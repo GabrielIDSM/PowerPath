@@ -309,13 +309,13 @@ main {
 
     .Botoes .Inserir,
     .Botoes .Salvar,
-    .Botoes .Logar {
+    .Botoes .Autenticar {
         background-color: rgba(var(--van-dyke), 1) !important;
         color: rgba(var(--off-white), 1) !important;
         font-size: 12pt;
     }
 
-    .Botoes .Logar {
+    .Botoes .Autenticar {
         flex: 1;
     }
 

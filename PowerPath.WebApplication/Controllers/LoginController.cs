@@ -4,7 +4,7 @@ using PowerPath.Application.Interfaces.Services;
 
 namespace PowerPath.WebApplication.Controllers
 {
-    public class HomeController(IUsuarioApplicationService usuarioAppService) : Controller
+    public class LoginController(IUsuarioApplicationService usuarioAppService) : Controller
     {
         private readonly IUsuarioApplicationService _usuarioAppService = usuarioAppService;
 
@@ -14,7 +14,7 @@ namespace PowerPath.WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Entrar(UsuarioDTO usuario)
+        public IActionResult Autenticar(UsuarioDTO usuario)
         {
             Resposta<string> rToken = _usuarioAppService.Autenticar(usuario.Nome, usuario.Senha);
 
@@ -33,7 +33,7 @@ namespace PowerPath.WebApplication.Controllers
             else
             {
                 TempData["MensagemErro"] = rToken.Mensagem;
-                return RedirectToAction("Index", "Home");
+                return View("Index", usuario);
             }
         }
     }

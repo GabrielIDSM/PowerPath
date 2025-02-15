@@ -30,7 +30,7 @@ builder.Services.AddAuthentication(options =>
         OnChallenge = context =>
         {
             context.HandleResponse();
-            context.Response.Redirect("/Home/Index");
+            context.Response.Redirect("/Login/Index");
             return Task.CompletedTask;
         },
         OnMessageReceived = context =>
