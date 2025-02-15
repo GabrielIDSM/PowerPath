@@ -5,10 +5,12 @@ using PowerPath.Application.Interfaces.Services;
 
 namespace PowerPath.Application.Services
 {
-    public class ConsoleApplicationService(IMedidorApplicationService medidorApplicationService) : IConsoleApplicationService
+    public class ConsoleApplicationService(IMedidorApplicationService medidorApplicationService,
+        IUsuarioApplicationService usuarioApplicationService) : IConsoleApplicationService
     {
         private static readonly List<string> _cabecalhoMedidor = ["Instalação", "Lote", "Operadora", "Fabricante", "Modelo", "Versão"];
         private readonly IMedidorApplicationService _medidorApplicationService = medidorApplicationService;
+        private readonly IUsuarioApplicationService _usuarioApplicationService = usuarioApplicationService;
 
         public void ProcessarComando(string? comando)
         {
@@ -18,8 +20,9 @@ namespace PowerPath.Application.Services
                 return;
             }
 
-            Resposta<MedidorDTO> resposta;
-            Resposta<List<MedidorDTO>> respostaComLista;
+            Resposta<MedidorDTO> respostaComMedidor;
+            Resposta<List<MedidorDTO>> respostaComMedidores;
+            Resposta<UsuarioDTO> respostaComUsuario;
             ComandoFormatado comandoFormatado = FormatarComando(comando!);
             int argumentosCount = comandoFormatado.Argumentos?.Count ?? 0;
 
@@ -31,16 +34,16 @@ namespace PowerPath.Application.Services
                         int? lote = ParaIntOuNulo(comandoFormatado.Argumentos?[1]);
                         int? modelo = ParaIntOuNulo(comandoFormatado.Argumentos?[4]);
                         int? versao = ParaIntOuNulo(comandoFormatado.Argumentos?[5]);
-                        resposta = _medidorApplicationService.Inserir(comandoFormatado.Argumentos?[0], lote, comandoFormatado.Argumentos?[2],
+                        respostaComMedidor = _medidorApplicationService.Inserir(comandoFormatado.Argumentos?[0], lote, comandoFormatado.Argumentos?[2],
                             comandoFormatado.Argumentos?[3], modelo, versao);
-                        if (resposta.IsSucesso)
+                        if (respostaComMedidor.IsSucesso)
                         {
-                            MedidorDTO medidor = resposta.Resultado!;
+                            MedidorDTO medidor = respostaComMedidor.Resultado!;
                             ImprimirMedidor("Medidor inserido", medidor);
                         }
                         else
                         {
-                            Console.WriteLine(resposta.Mensagem);
+                            Console.WriteLine(respostaComMedidor.Mensagem);
                         }
                     }
                     else
@@ -52,15 +55,15 @@ namespace PowerPath.Application.Services
                     if (argumentosCount == 2)
                     {
                         int? lote = ParaIntOuNulo(comandoFormatado.Argumentos?[1]);
-                        resposta = _medidorApplicationService.Excluir(comandoFormatado.Argumentos?[0], lote);
-                        if (resposta.IsSucesso)
+                        respostaComMedidor = _medidorApplicationService.Excluir(comandoFormatado.Argumentos?[0], lote);
+                        if (respostaComMedidor.IsSucesso)
                         {
-                            MedidorDTO medidor = resposta.Resultado!;
+                            MedidorDTO medidor = respostaComMedidor.Resultado!;
                             ImprimirMedidor("Medidor excluído", medidor);
                         }
                         else
                         {
-                            Console.WriteLine(resposta.Mensagem);
+                            Console.WriteLine(respostaComMedidor.Mensagem);
                         }
                     }
                     else
@@ -74,16 +77,16 @@ namespace PowerPath.Application.Services
                         int? lote = ParaIntOuNulo(comandoFormatado.Argumentos?[1]);
                         int? modelo = ParaIntOuNulo(comandoFormatado.Argumentos?[4]);
                         int? versao = ParaIntOuNulo(comandoFormatado.Argumentos?[5]);
-                        resposta = _medidorApplicationService.Alterar(comandoFormatado.Argumentos?[0], lote, comandoFormatado.Argumentos?[2],
+                        respostaComMedidor = _medidorApplicationService.Alterar(comandoFormatado.Argumentos?[0], lote, comandoFormatado.Argumentos?[2],
                             comandoFormatado.Argumentos?[3], modelo, versao);
-                        if (resposta.IsSucesso)
+                        if (respostaComMedidor.IsSucesso)
                         {
-                            MedidorDTO medidor = resposta.Resultado!;
+                            MedidorDTO medidor = respostaComMedidor.Resultado!;
                             ImprimirMedidor("Medidor alterado", medidor);
                         }
                         else
                         {
-                            Console.WriteLine(resposta.Mensagem);
+                            Console.WriteLine(respostaComMedidor.Mensagem);
                         }
                     }
                     else
@@ -94,15 +97,15 @@ namespace PowerPath.Application.Services
                 case 'm':
                     if (argumentosCount == 1)
                     {
-                        respostaComLista = _medidorApplicationService.Inserir(comandoFormatado.Argumentos?[0]);
-                        if (respostaComLista.IsSucesso)
+                        respostaComMedidores = _medidorApplicationService.Inserir(comandoFormatado.Argumentos?[0]);
+                        if (respostaComMedidores.IsSucesso)
                         {
-                            List<MedidorDTO> medidores = respostaComLista.Resultado!;
+                            List<MedidorDTO> medidores = respostaComMedidores.Resultado!;
                             ImprimirMedidores("Lista de medidores inseridos", medidores);
                         }
                         else
                         {
-                            Console.WriteLine(respostaComLista.Mensagem);
+                            Console.WriteLine(respostaComMedidores.Mensagem);
                         }
                     }
                     else
@@ -114,15 +117,15 @@ namespace PowerPath.Application.Services
                     if (argumentosCount == 2)
                     {
                         int? lote = ParaIntOuNulo(comandoFormatado.Argumentos?[1]);
-                        resposta = _medidorApplicationService.Consultar(comandoFormatado.Argumentos?[0], lote);
-                        if (resposta.IsSucesso)
+                        respostaComMedidor = _medidorApplicationService.Consultar(comandoFormatado.Argumentos?[0], lote);
+                        if (respostaComMedidor.IsSucesso)
                         {
-                            MedidorDTO medidor = resposta.Resultado!;
+                            MedidorDTO medidor = respostaComMedidor.Resultado!;
                             ImprimirMedidor("Medidor consultado", medidor);
                         }
                         else
                         {
-                            Console.WriteLine(resposta.Mensagem);
+                            Console.WriteLine(respostaComMedidor.Mensagem);
                         }
                     }
                     else
@@ -131,15 +134,34 @@ namespace PowerPath.Application.Services
                     }
                     break;
                 case 'l':
-                    respostaComLista = _medidorApplicationService.Consultar();
-                    if (respostaComLista.IsSucesso)
+                    respostaComMedidores = _medidorApplicationService.Consultar();
+                    if (respostaComMedidores.IsSucesso)
                     {
-                        List<MedidorDTO> medidores = respostaComLista.Resultado!;
+                        List<MedidorDTO> medidores = respostaComMedidores.Resultado!;
                         ImprimirMedidores("Lista de medidores", medidores);
                     }
                     else
                     {
-                        Console.WriteLine(respostaComLista.Mensagem);
+                        Console.WriteLine(respostaComMedidores.Mensagem);
+                    }
+                    break;
+                case 'u':
+
+                    if (argumentosCount == 2)
+                    {
+                        respostaComUsuario = _usuarioApplicationService.Criar(comandoFormatado.Argumentos?[0], comandoFormatado.Argumentos?[1]);
+                        if (respostaComUsuario.IsSucesso)
+                        {
+                            Console.WriteLine("Usuário criado com sucesso");
+                        }
+                        else
+                        {
+                            Console.WriteLine(respostaComUsuario.Mensagem);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("O número de argumentos é inválido.");
                     }
                     break;
                 default:
@@ -158,6 +180,7 @@ namespace PowerPath.Application.Services
                     ["m ou M", "Inserção massiva", "Instalação, Lote, Operadora, Fabricante, Modelo, Versão"],
                     ["c ou C", "Consulta simples", "Instalação, Lote"],
                     ["l ou L", "Consulta completa"],
+                    ["u ou U", "Cadastrar usuário", "Usuário, Senha"],
                     ["x ou X", "Sair"],
                     ["?", "Ajuda"]
                 ];

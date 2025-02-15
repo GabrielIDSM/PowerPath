@@ -14,3 +14,9 @@ CREATE TABLE Medidor (
     Excluido BIT NOT NULL DEFAULT 0,
     PRIMARY KEY (Instalacao, Lote)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+
+CREATE TABLE Usuario (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(50) NOT NULL,
+    Senha VARCHAR(255) NOT NULL
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;

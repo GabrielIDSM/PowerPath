@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PowerPath.Application\PowerPath.Application.csproj" />
     <ProjectReference Include="..\PowerPath.Infra.Files\PowerPath.Infra.Files.csproj" />
+    <ProjectReference Include="..\PowerPath.Infra.Security\PowerPath.Infra.Security.csproj" />
     <ProjectReference Include="..\PowerPath.Infra.SQL\PowerPath.Infra.SQL.csproj" />
   </ItemGroup>
 

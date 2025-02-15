@@ -1,11 +1,10 @@
 ﻿using PowerPath.Domain.Entities;
+using PowerPath.Domain.Interfaces.Repositories.Base;
 
-namespace PowerPath.Domain.Interfaces.Repositories.Base
+namespace PowerPath.Domain.Interfaces.Repositories.Medidores.Base
 {
     public interface IBaseMedidorRepository : IBaseRepository<Medidor>
     {
-        void Atualizar(Medidor medidor);
-
         void Atualizar(List<Medidor> medidores);
 
         void Criar(List<Medidor> medidores);

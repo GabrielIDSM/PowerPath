@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Microsoft.Extensions.Configuration;
 using PowerPath.Domain.Entities;
-using PowerPath.Domain.Interfaces.Repositories;
+using PowerPath.Domain.Interfaces.Repositories.Medidores;
 
 namespace PowerPath.Infra.Files.Repositories
 {

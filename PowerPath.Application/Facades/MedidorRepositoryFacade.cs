@@ -1,6 +1,6 @@
 ﻿using PowerPath.Domain.Entities;
 using PowerPath.Domain.Interfaces.Facades.Repositories;
-using PowerPath.Domain.Interfaces.Repositories;
+using PowerPath.Domain.Interfaces.Repositories.Medidores;
 
 namespace PowerPath.Application.Facades
 {

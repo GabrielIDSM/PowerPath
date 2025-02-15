@@ -1,26 +1,17 @@
 ﻿using PowerPath.Domain.Entities;
-using PowerPath.Domain.Interfaces.Repositories;
+using PowerPath.Domain.Interfaces.Repositories.Medidores;
 using PowerPath.Infra.SQL.Contexts;
+using PowerPath.Infra.SQL.Repositories.Base;
 
 namespace PowerPath.Infra.SQL.Repositories
 {
-    public class MedidorRepository(PowerPathContext context) : IMedidorSQLRepository
+    public class MedidorRepository(PowerPathContext context) : BaseRepository<Medidor>(context), IMedidorSQLRepository
     {
         private readonly PowerPathContext _context = context;
-
-        public void Atualizar(Medidor medidor)
-        {
-            _context.Medidor.Update(medidor);
-        }
 
         public void Atualizar(List<Medidor> medidores)
         {
             _context.Medidor.UpdateRange(medidores);
-        }
-
-        public void Criar(Medidor medidor)
-        {
-            _context.Medidor.Add(medidor);
         }
 
         public void Criar(List<Medidor> medidores)
@@ -38,11 +29,6 @@ namespace PowerPath.Infra.SQL.Repositories
             return _context.Medidor
                 .Where(m => m.Instalacao.Equals(instalacao) && m.Lote == lote)
                 .FirstOrDefault();
-        }
-
-        public void Salvar()
-        {
-            _context.SaveChanges();
         }
     }
 }

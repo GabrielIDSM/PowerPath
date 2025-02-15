@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.WebApplication", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.ConsoleApplication", "PowerPath.ConsoleApplication\PowerPath.ConsoleApplication.csproj", "{C92904C7-40D6-4F62-AA09-5455608DF38C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPath.Infra.Security", "PowerPath.Infra.Security\PowerPath.Infra.Security.csproj", "{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{C92904C7-40D6-4F62-AA09-5455608DF38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C92904C7-40D6-4F62-AA09-5455608DF38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C92904C7-40D6-4F62-AA09-5455608DF38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1DE078C-C3AA-4A68-8942-EAAD48C4BCAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

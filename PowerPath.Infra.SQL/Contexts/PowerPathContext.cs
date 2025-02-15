@@ -10,6 +10,8 @@ public partial class PowerPathContext(IConfiguration configuration, DbContextOpt
 
     public virtual DbSet<Medidor> Medidor { get; set; }
 
+    public virtual DbSet<Usuario> Usuario { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -41,6 +43,18 @@ public partial class PowerPathContext(IConfiguration configuration, DbContextOpt
                 .HasColumnType("bit(1)");
             entity.Property(e => e.Fabricante).HasMaxLength(15);
             entity.Property(e => e.Operadora).HasMaxLength(5);
+        });
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity
+                .ToTable("usuario")
+                .UseCollation("utf8mb4_bin");
+
+            entity.Property(e => e.Nome).HasMaxLength(50);
+            entity.Property(e => e.Senha).HasMaxLength(255);
         });
 
         OnModelCreatingPartial(modelBuilder);
