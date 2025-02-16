@@ -191,7 +191,7 @@ main {
         border: solid 1px rgba(var(--cor), 1);
         border-left: solid 8px rgba(var(--cor), 1);
         background-color: rgba(var(--white), 1);
-        --cor: var(--van-dyke);
+        --cor: var(--cinereous);
     }
 
         .Lista .Item.Excluido {
