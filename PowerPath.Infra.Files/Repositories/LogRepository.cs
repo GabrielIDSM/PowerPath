@@ -49,7 +49,7 @@ namespace PowerPath.Infra.Files.Repositories
 
             Log log = new()
             {
-                DataHora = DateTime.ParseExact(partes[0], "dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                DataHora = DateTime.ParseExact(partes[0], "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                 Acao = partes[1],
                 Mensagem = partes[2]
             };
@@ -59,7 +59,7 @@ namespace PowerPath.Infra.Files.Repositories
 
         public string ParaLinha(Log log)
         {
-            return $"{log.DataHora:dd/MM/yyyy hh:mm:ss} - {log.Acao} - {log.Mensagem}";
+            return $"{log.DataHora:dd/MM/yyyy HH:mm:ss} - {log.Acao} - {log.Mensagem}";
         }
     }
 }

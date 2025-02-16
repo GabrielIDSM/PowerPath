@@ -33,8 +33,11 @@ function ConfigurarLog() {
 }
 
 function ExibirMensagem() {
-    let mensagemSucesso = sessionStorage.getItem('MensagemSucesso'),
+    let $notificacao = $('.Notificacao'),
+        mensagemSucesso = sessionStorage.getItem('MensagemSucesso'),
         mensagemErro = sessionStorage.getItem('MensagemErro')
+
+    $notificacao.remove()
 
     if (mensagemSucesso) {
         $(`
