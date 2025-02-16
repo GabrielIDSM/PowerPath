@@ -109,15 +109,21 @@ function ExibirLog() {
         success: function (response) {
             let $logs = $('#historico')
             $logs.find('tr:not(:first)').remove()
-            response.forEach(function (log) {
-                $(`
+
+            if (response.isSucesso) {
+                response.resultado.forEach(function (log) {
+                    $(`
                     <tr>
                         <td>${log.acao}</td>
                         <td>${log.dataHora}</td>
                         <td>${log.mensagem}</td>
                     </tr>
                 `).appendTo($logs)
-            })
+                })
+            } else {
+                AdicionarMensagemErro(response.mensagem)
+                ExibirMensagem()
+            }
         },
         error: function (xhr) {
             AdicionarMensagemErro(xhr.responseJSON.mensagem)

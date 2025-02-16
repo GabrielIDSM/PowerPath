@@ -423,7 +423,7 @@ main {
     display: flex;
     gap: 10px;
     border-radius: 4px;
-    background-color: rgba(var(--cor-fundo), 1);
+    background-color: rgba(var(--cor-fundo), 0.8);
     align-items: center;
 }
 
