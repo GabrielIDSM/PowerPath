@@ -103,11 +103,12 @@ html {
             }
 
             .Login .Entrar .Container > p {
-                margin: 0;
-                font-weight: 800;
-                font-size: 22pt;
-                line-height: 32px;
+                margin-bottom: 0px;
+                font-weight: 700;
+                font-size: 28px;
+                font-family: "Roboto Condensed";
                 text-align: center;
+                line-height: 28px;
                 color: rgba(var(--van-dyke), 1);
             }
 
@@ -119,6 +120,7 @@ html {
     .Navbar .Logo {
         font-weight: 800;
         font-size: 18pt;
+        font-family: "Roboto Condensed";
         color: rgba(var(--off-white), 1);
     }
 
@@ -136,7 +138,8 @@ main {
     main .Titulo {
         margin-bottom: 20px;
         font-weight: 700;
-        font-size: 18pt;
+        font-size: 28px;
+        font-family: "Roboto Condensed";
         text-transform: uppercase;
         color: rgba(var(--van-dyke), 1);
     }
@@ -361,7 +364,10 @@ main {
             font-size: 14px;
             line-height: 18px;
             color: rgba(var(--van-dyke), 0.85);
-            background-color: rgba(var(--off-white), 1);
+            text-shadow: -2px -2px 0 rgba(var(--off-white), 1),
+                2px -2px 0 rgba(var(--off-white), 1),
+                -2px 2px 0 rgba(var(--off-white), 1),
+                2px 2px 0 rgba(var(--off-white), 1);
         }
 
         .Formulario .Linha .Campo > input {
@@ -401,7 +407,7 @@ main {
     }
 
 .Login .Botoes {
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 0;
 }
 
@@ -538,6 +544,10 @@ main {
         display: none;
     }
 
+    .Lista .Item .Container .Status > p {
+        font-size: 12px;
+    }
+
     .Login .Imagem {
         display: none;
     }
@@ -552,6 +562,12 @@ main {
 
     .Filtros > .Filtro {
         flex: 1 1 calc(50% - 10px);
+    }
+
+    .Tabela td,
+    .Tabela th {
+        padding: 5px;
+        text-align: center;
     }
 }
 
