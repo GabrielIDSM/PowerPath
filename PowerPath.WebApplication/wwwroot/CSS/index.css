@@ -15,6 +15,7 @@
     --black: 0, 0, 0;
     --van-dyke: 63, 41, 43;
     --cinereous: 129, 108, 97;
+    --cinereous-alt: 228, 224, 222;
     --forest-green: 22, 146, 32;
     --wku-red: 198, 12, 48;
 }
@@ -35,18 +36,19 @@ html {
 }
 
     html::-webkit-scrollbar-track {
-        background-color: rgba(var(--off-white), 1);
+        background-color: rgba(var(--cinereous), 0.1);
     }
 
     html::-webkit-scrollbar {
-        width: 15px;
-        height: 15px;
-        background-color: rgba(var(--off-white), 1);
+        width: 16px;
+        height: 16px;
+        background-color: rgba(var(--cinereous), 0.1);
     }
 
     html::-webkit-scrollbar-thumb {
         background-color: rgba(var(--van-dyke), 1);
-        border: 2px solid rgba(var(--off-white), 1);
+        border-radius: 15px;
+        border: 3px solid rgba(var(--cinereous-alt), 1);
     }
 
 .Login {
@@ -191,7 +193,7 @@ main {
         border: solid 1px rgba(var(--cor), 1);
         border-left: solid 8px rgba(var(--cor), 1);
         background-color: rgba(var(--white), 1);
-        --cor: var(--van-dyke);
+        --cor: var(--cinereous);
     }
 
         .Lista .Item.Excluido {
@@ -423,7 +425,7 @@ main {
     display: flex;
     gap: 10px;
     border-radius: 4px;
-    background-color: rgba(var(--cor-fundo), 1);
+    background-color: rgba(var(--cor-fundo), 0.8);
     align-items: center;
 }
 

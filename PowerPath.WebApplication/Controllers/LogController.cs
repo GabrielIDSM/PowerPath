@@ -27,18 +27,9 @@ namespace PowerPath.WebApplication.Controllers
         }
 
         [HttpGet]
-        public JsonResult Listar(int ano, int mes, int dia)
+        public IActionResult Listar(int ano, int mes, int dia)
         {
-            Resposta<List<LogDTO>> rLogs = _logAppService.ListarPorData(ano, mes, dia);
-
-            if (rLogs.IsSucesso)
-            {
-                return Json(rLogs.Resultado);
-            }
-            else
-            {
-                return Json(new List<LogDTO>());
-            }
+            return Json(_logAppService.ListarPorData(ano, mes, dia));
         }
     }
 }
