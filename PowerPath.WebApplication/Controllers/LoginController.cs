@@ -28,6 +28,14 @@ namespace PowerPath.WebApplication.Controllers
                     Expires = DateTimeOffset.UtcNow.AddHours(1)
                 });
 
+                Response.Cookies.Append("Username", usuario.Nome!, new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.Strict,
+                    Secure = true,
+                    Expires = DateTimeOffset.UtcNow.AddHours(1)
+                });
+
                 return RedirectToAction("Index", "Medidor");
             }
             else
