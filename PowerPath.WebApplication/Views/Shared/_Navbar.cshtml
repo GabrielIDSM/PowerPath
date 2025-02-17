@@ -1,4 +1,8 @@
-﻿<nav class="Navbar navbar navbar-expand-lg navbar-light">
+﻿@{
+    string? username = Context.Items["Username"] as string;
+}
+
+<nav class="Navbar navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -13,6 +17,12 @@
                     <a class="nav-link @((string?)ViewData["Title"] == "Histórico" ? "active" : "")" asp-controller="Log" asp-action="Index"><i class="fa-solid fa-book"></i>Histórico</a>
                 </li>
             </ul>
+            @if (!string.IsNullOrWhiteSpace(username))
+            {
+                <span class="navbar-text Username">
+                    Bem-vindo, <span>@(username)</span>!
+                </span>
+            }
         </div>
     </div>
 </nav>

@@ -1,4 +1,5 @@
 using PowerPath.CrossCut;
+using PowerPath.WebApplication.Controllers.Middleware;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ if (!webApplication.Environment.IsDevelopment())
 webApplication.UseHttpsRedirection();
 webApplication.UseStaticFiles();
 webApplication.UseRouting();
+webApplication.UseMiddleware<Middleware>();
 webApplication.UseAuthentication();
 webApplication.UseAuthorization();
 
