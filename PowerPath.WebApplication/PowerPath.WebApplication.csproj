@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Asset\" />
+    <Folder Include="wwwroot\Asset\Icon\" />
   </ItemGroup>
 
   <ItemGroup>
